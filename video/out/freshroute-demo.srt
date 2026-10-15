@@ -1,67 +1,71 @@
 1
-00:00:00,300 --> 00:00:02,740
+00:00:00,300 --> 00:00:02,300
 Unsold produce is a planning problem.
 
 2
-00:00:03,240 --> 00:00:05,490
+00:00:02,800 --> 00:00:04,931
 It decides what ships first, and where.
 
 3
-00:00:05,940 --> 00:00:08,728
+00:00:05,381 --> 00:00:08,084
 Twenty six batches, six markets, one day.
 
 4
-00:00:09,128 --> 00:00:10,625
-Money, unsold stock,
+00:00:08,484 --> 00:00:09,833
+Money, spoiled kg,
 
 5
-00:00:10,725 --> 00:00:12,676
+00:00:09,933 --> 00:00:11,925
 and demand met come first.
 
 6
-00:00:13,226 --> 00:00:15,702
-It beats a strong rule-based dispatcher.
+00:00:12,475 --> 00:00:13,957
+Against a strong rule-based
 
 7
-00:00:16,152 --> 00:00:18,740
-Most perishable first, with a reason each.
+00:00:14,057 --> 00:00:16,166
+dispatcher it ties or gains slightly.
 
 8
-00:00:19,240 --> 00:00:20,486
-If demand is elastic,
+00:00:16,616 --> 00:00:19,211
+Most perishable first, with a reason each.
 
 9
-00:00:20,586 --> 00:00:22,978
-discounts appear only where they pay.
+00:00:19,711 --> 00:00:20,893
+If demand is elastic,
 
 10
-00:00:23,378 --> 00:00:25,303
-Now, close the biggest market.
+00:00:20,993 --> 00:00:23,271
+discounts appear only where they pay.
 
 11
-00:00:25,903 --> 00:00:28,678
-It replans at once, zero rule breaks.
+00:00:23,671 --> 00:00:25,386
+Now, close the biggest market.
 
 12
-00:00:29,128 --> 00:00:31,276
-Thirty bad days: plan and rival
+00:00:25,986 --> 00:00:28,641
+It replans at once, zero rule breaks.
 
 13
-00:00:31,376 --> 00:00:33,711
-both fixed, it still earns more.
+00:00:29,091 --> 00:00:31,777
+Thirty bad days, plan and rival fixed:
 
 14
-00:00:34,211 --> 00:00:36,217
-On held out data: at least plus
+00:00:31,877 --> 00:00:33,531
+on average about even.
 
 15
-00:00:36,317 --> 00:00:38,592
-point six percent, never worse.
+00:00:34,031 --> 00:00:35,950
+Held out: plus zero to plus point
 
 16
-00:00:39,142 --> 00:00:41,086
-Open assumptions and tested
+00:00:36,050 --> 00:00:38,293
+eight percent versus the best rule.
 
 17
-00:00:41,186 --> 00:00:43,059
+00:00:38,843 --> 00:00:40,457
+Open assumptions and tested
+
+18
+00:00:40,557 --> 00:00:42,129
 code. This is FreshRoute.

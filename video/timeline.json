@@ -19,95 +19,95 @@
   {
    "id": "s01",
    "start": 0.3,
-   "end": 2.74,
+   "end": 2.3,
    "text": "Unsold produce is a planning problem.",
    "pause_before": 0.0,
    "emphasis": false
   },
   {
    "id": "s02",
-   "start": 3.24,
-   "end": 5.49,
+   "start": 2.8,
+   "end": 4.931,
    "text": "It decides what ships first, and where.",
    "pause_before": 0.0,
    "emphasis": false
   },
   {
    "id": "s03",
-   "start": 5.94,
-   "end": 8.728,
+   "start": 5.381,
+   "end": 8.084,
    "text": "Twenty six batches, six markets, one day.",
    "pause_before": 0.0,
    "emphasis": false
   },
   {
    "id": "s04",
-   "start": 9.128,
-   "end": 12.676,
-   "text": "Money, unsold stock, and demand met come first.",
+   "start": 8.484,
+   "end": 11.925,
+   "text": "Money, spoiled kg, and demand met come first.",
    "pause_before": 0.0,
    "emphasis": false
   },
   {
    "id": "s05",
-   "start": 13.226,
-   "end": 15.702,
-   "text": "It beats a strong rule-based dispatcher.",
+   "start": 12.475,
+   "end": 16.166,
+   "text": "Against a strong rule-based dispatcher it ties or gains slightly.",
    "pause_before": 0.0,
    "emphasis": false
   },
   {
    "id": "s06",
-   "start": 16.152,
-   "end": 18.74,
+   "start": 16.616,
+   "end": 19.211,
    "text": "Most perishable first, with a reason each.",
    "pause_before": 0.0,
    "emphasis": false
   },
   {
    "id": "s07",
-   "start": 19.24,
-   "end": 22.978,
+   "start": 19.711,
+   "end": 23.271,
    "text": "If demand is elastic, discounts appear only where they pay.",
    "pause_before": 0.0,
    "emphasis": false
   },
   {
    "id": "s08",
-   "start": 23.378,
-   "end": 25.303,
+   "start": 23.671,
+   "end": 25.386,
    "text": "Now, close the biggest market.",
    "pause_before": 0.0,
    "emphasis": false
   },
   {
    "id": "s09",
-   "start": 25.903,
-   "end": 28.678,
+   "start": 25.986,
+   "end": 28.641,
    "text": "It replans at once, zero rule breaks.",
    "pause_before": 0.0,
    "emphasis": false
   },
   {
    "id": "s10",
-   "start": 29.128,
-   "end": 33.711,
-   "text": "Thirty bad days: plan and rival both fixed, it still earns more.",
+   "start": 29.091,
+   "end": 33.531,
+   "text": "Thirty bad days, plan and rival fixed: on average about even.",
    "pause_before": 0.0,
    "emphasis": false
   },
   {
    "id": "s11",
-   "start": 34.211,
-   "end": 38.592,
-   "text": "On held out data: at least plus point six percent, never worse.",
+   "start": 34.031,
+   "end": 38.293,
+   "text": "Held out: plus zero to plus point eight percent versus the best rule.",
    "pause_before": 0.0,
    "emphasis": false
   },
   {
    "id": "s12",
-   "start": 39.142,
-   "end": 43.059,
+   "start": 38.843,
+   "end": 42.129,
    "text": "Open assumptions and tested code. This is FreshRoute.",
    "pause_before": 0.0,
    "emphasis": false
@@ -116,119 +116,126 @@
  "cues": [
   {
    "start": 0.3,
-   "end": 2.74,
+   "end": 2.3,
    "lines": [
     "Unsold produce is a planning problem."
    ]
   },
   {
-   "start": 3.24,
-   "end": 5.49,
+   "start": 2.8,
+   "end": 4.931,
    "lines": [
     "It decides what ships first, and where."
    ]
   },
   {
-   "start": 5.94,
-   "end": 8.728,
+   "start": 5.381,
+   "end": 8.084,
    "lines": [
     "Twenty six batches, six markets, one day."
    ]
   },
   {
-   "start": 9.128,
-   "end": 10.625,
+   "start": 8.484,
+   "end": 9.833,
    "lines": [
-    "Money, unsold stock,"
+    "Money, spoiled kg,"
    ]
   },
   {
-   "start": 10.725,
-   "end": 12.676,
+   "start": 9.933,
+   "end": 11.925,
    "lines": [
     "and demand met come first."
    ]
   },
   {
-   "start": 13.226,
-   "end": 15.702,
+   "start": 12.475,
+   "end": 13.957,
    "lines": [
-    "It beats a strong rule-based dispatcher."
+    "Against a strong rule-based"
    ]
   },
   {
-   "start": 16.152,
-   "end": 18.74,
+   "start": 14.057,
+   "end": 16.166,
+   "lines": [
+    "dispatcher it ties or gains slightly."
+   ]
+  },
+  {
+   "start": 16.616,
+   "end": 19.211,
    "lines": [
     "Most perishable first, with a reason each."
    ]
   },
   {
-   "start": 19.24,
-   "end": 20.486,
+   "start": 19.711,
+   "end": 20.893,
    "lines": [
     "If demand is elastic,"
    ]
   },
   {
-   "start": 20.586,
-   "end": 22.978,
+   "start": 20.993,
+   "end": 23.271,
    "lines": [
     "discounts appear only where they pay."
    ]
   },
   {
-   "start": 23.378,
-   "end": 25.303,
+   "start": 23.671,
+   "end": 25.386,
    "lines": [
     "Now, close the biggest market."
    ]
   },
   {
-   "start": 25.903,
-   "end": 28.678,
+   "start": 25.986,
+   "end": 28.641,
    "lines": [
     "It replans at once, zero rule breaks."
    ]
   },
   {
-   "start": 29.128,
-   "end": 31.276,
+   "start": 29.091,
+   "end": 31.777,
    "lines": [
-    "Thirty bad days: plan and rival"
+    "Thirty bad days, plan and rival fixed:"
    ]
   },
   {
-   "start": 31.376,
-   "end": 33.711,
+   "start": 31.877,
+   "end": 33.531,
    "lines": [
-    "both fixed, it still earns more."
+    "on average about even."
    ]
   },
   {
-   "start": 34.211,
-   "end": 36.217,
+   "start": 34.031,
+   "end": 35.95,
    "lines": [
-    "On held out data: at least plus"
+    "Held out: plus zero to plus point"
    ]
   },
   {
-   "start": 36.317,
-   "end": 38.592,
+   "start": 36.05,
+   "end": 38.293,
    "lines": [
-    "point six percent, never worse."
+    "eight percent versus the best rule."
    ]
   },
   {
-   "start": 39.142,
-   "end": 41.086,
+   "start": 38.843,
+   "end": 40.457,
    "lines": [
     "Open assumptions and tested"
    ]
   },
   {
-   "start": 41.186,
-   "end": 43.059,
+   "start": 40.557,
+   "end": 42.129,
    "lines": [
     "code. This is FreshRoute."
    ]
@@ -245,80 +252,12 @@
   "Measured on held-out datasets",
   "Thank you",
   "Held-out data: 30 seeds, never used while building",
-  "Rule breaks by the plan: 0 of 30 datasets",
-  "Net vs strongest of 4 baselines: +0.6% / +0.9% / +4.1%",
-  "(elasticity 0.5 / 1.0 / 1.5), never worse in 30 of 30",
-  "Really spoiled 0 kg. Unsold stock 36.6% vs 37.1%",
+  "Rule breaks by the plan: 0 dataset runs of 180",
+  "Net vs best rule, default set: +0.8% / +1.1% / +4.1%",
+  "Shelf-life set: +0.0% / +2.9% / +8.6% (elasticity 0.5 / 1.0 / 1.5)",
+  "Spoiled kg, plan vs naive FIFO: 18 vs 9333; vs best rule: tie",
   "FreshRoute",
   "Wild Bugs · PS 03",
   "Synthetic data. Assumptions and tests are public."
- ],
- "speech_onsets": [
-  {
-   "id": "s01",
-   "t": 0.304
-  },
-  {
-   "id": "s02",
-   "t": 3.284
-  },
-  {
-   "id": "s03",
-   "t": 5.988
-  },
-  {
-   "id": "s04",
-   "t": 9.127
-  },
-  {
-   "id": "s05",
-   "t": 13.225
-  },
-  {
-   "id": "s06",
-   "t": 16.2
-  },
-  {
-   "id": "s07",
-   "t": 19.244
-  },
-  {
-   "id": "s08",
-   "t": 23.422
-  },
-  {
-   "id": "s09",
-   "t": 25.946
-  },
-  {
-   "id": "s10",
-   "t": 29.126
-  },
-  {
-   "id": "s11",
-   "t": 34.206
-  },
-  {
-   "id": "s12",
-   "t": 39.135
-  }
- ],
- "static_spans": [
-  {
-   "start": 0.0,
-   "dur": 4.17
-  },
-  {
-   "start": 4.23,
-   "dur": 4.63
-  },
-  {
-   "start": 24.7,
-   "dur": 4.17
-  },
-  {
-   "start": 29.93,
-   "dur": 4.0
-  }
  ]
 }
