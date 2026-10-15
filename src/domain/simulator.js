@@ -45,7 +45,7 @@ export function evaluate(plan, scenario) {
   const dests = new Map(scenario.destinations.map(d => [d.id, d]));
   const disc = discountMap(plan);
   const violations = verify(plan, scenario);
-  let transport = 0, handling = 0, spoilageCost = 0, spoiledKg = 0, revenue = 0, sold = 0, carryKg = 0, holding = 0;
+  let expiredKg = 0, strandedKg = 0, transport = 0, handling = 0, spoilageCost = 0, spoiledKg = 0, revenue = 0, sold = 0, carryKg = 0, holding = 0;
   const pool = new Map(); // dest|commodity -> sellable kg
   const shippedByBatch = new Map();
   const laneUsed = new Map();
@@ -66,7 +66,7 @@ export function evaluate(plan, scenario) {
     }
   }
   const perCell = [];
-  let baseDemandTotal = 0, fulfilledTotal = 0;
+  let baseDemandTotal = 0, fulfilledTotal = 0; const mkt = new Map();
   for (const d of scenario.destinations) for (const c of Object.keys(d.demand)) {
     const base = d.demand[c]; baseDemandTotal += base;
     const pct = disc.get(key(d.id, c)) || 0;
@@ -74,6 +74,7 @@ export function evaluate(plan, scenario) {
     const avail = pool.get(key(d.id, c)) || 0;
     const q = Math.min(avail, dem);
     sold += q; fulfilledTotal += Math.min(q, base);
+    const mm = mkt.get(d.id) || { base: 0, ful: 0 }; mm.base += base; mm.ful += Math.min(q, base); mkt.set(d.id, mm);
     revenue += q * d.price[c] * (1 - pct);
     const unsold = avail - q;
     if (unsold > 0) { spoiledKg += unsold; spoilageCost += unsold * scenario.commodities[c].procureCost; }
@@ -84,7 +85,9 @@ export function evaluate(plan, scenario) {
     totalStock += b.qty;
     const left = b.qty - (shippedByBatch.get(b.id) || 0);
     if (left <= 1e-9) continue;
-    if (b.life <= cm.holdDays) { spoiledKg += left; spoilageCost += left * scenario.commodities[b.commodity].procureCost; }
+    if (!scenario.destinations.some(d => !d.closed && shipFeasible(b, d, scenario))) strandedKg += left; // no open market can take it inside its shelf life or delivery window
+    if (b.life - cm.holdDays < cm.minSaleDays) { // expired: cannot be sold tomorrow inside the minimum sell window (SPEC carry-over split)
+      expiredKg += left; spoiledKg += left; spoilageCost += left * scenario.commodities[b.commodity].procureCost; }
     else { // undispatched but still fresh: counted as unsold at round end and written off at carryWriteOff of procurement value
       carryKg += left; spoiledKg += left;
       holding += left * cm.holdingCostPerKg + left * scenario.commodities[b.commodity].procureCost * (cm.carryWriteOff ?? 0.5);
@@ -93,8 +96,10 @@ export function evaluate(plan, scenario) {
   const net = revenue - transport - handling - spoilageCost - holding;
   return {
     revenue, transport, handling, spoilageCost, holding, net,
-    soldKg: sold, spoiledKg, unsoldKg: spoiledKg, carryKg, trueSpoiledKg: spoiledKg - carryKg, totalStock,
+    soldKg: sold, strandedKg, expiredKg, spoiledKg, unsoldKg: spoiledKg, carryKg, trueSpoiledKg: spoiledKg - carryKg, totalStock,
     unsoldRate: totalStock ? spoiledKg / totalStock : 0,
+    unmetKg: baseDemandTotal - fulfilledTotal,
+    marketFulfilSpread: (() => { const v = [...mkt.values()].filter(m => m.base > 0).map(m => m.ful / m.base); return v.length ? Math.max(...v) - Math.min(...v) : 0; })(),
     fulfillment: baseDemandTotal ? fulfilledTotal / baseDemandTotal : 1,
     violations, perCell,
   };

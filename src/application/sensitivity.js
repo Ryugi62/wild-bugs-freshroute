@@ -19,7 +19,7 @@ function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6d2b79f5) | 0
 const summarize = (rows) => {
   const nets = rows.map(r => r.net).sort((a, b) => a - b);
   const mean = (k) => rows.reduce((a, r) => a + r[k], 0) / rows.length;
-  return { netMean: mean('net'), netP10: nets[Math.floor(nets.length * 0.1)], unsoldMean: mean('unsoldRate'), fulfillmentMean: mean('fulfillment'), n: rows.length };
+  return { netMean: mean('net'), netP10: nets[Math.floor(nets.length * 0.1)], netP90: nets[Math.min(nets.length - 1, Math.floor(nets.length * 0.9))], spoiledKgMean: mean('trueSpoiledKg'), expiredKgMean: mean('expiredKg'), unsoldMean: mean('unsoldRate'), fulfillmentMean: mean('fulfillment'), n: rows.length };
 };
 /** Random stress draws. Fair test: the original plan and the strongest baseline are both computed once on the original day and kept fixed on every bad day. The replanned figure re-solves with the disturbed values already known (oracle upper bound). */
 export function sensitivity(s, { draws = 30, seed = 1 } = {}) {
@@ -35,3 +35,12 @@ export function sensitivity(s, { draws = 30, seed = 1 } = {}) {
   }
   return { baselineName: strong.name, baseline: summarize(rows.baseline), fixed: summarize(rows.fixed), replannedOracle: summarize(rows.replanned), fixedBeatsBaseline: fixedBeats / draws, replanBeatsBaseline: replanBeats / draws, draws };
 }
+
+/** Trip-delay execution test: the plan is made on the nominal day, then each market's trips run late with probability delayShare by 0.3..1.0 day. Plans stay fixed. */
+export function delayDraw(s, seed, { delayShare = 1 / 3, delayRange = [0.3, 1.0] } = {}) {
+  const r = rng(seed); const o = clone(s);
+  for (const d of o.destinations) if (r() < delayShare) d.travelDays = Math.round((d.travelDays + delayRange[0] + (delayRange[1] - delayRange[0]) * r()) * 1000) / 1000;
+  return o;
+}
+/** Plan that keeps a safety margin: planned with trips bufferDays longer than nominal, so a small delay does not turn a shipment into spoilage. */
+export function planBuffered(s, bufferDays = 0.25) { return plan(perturb(s, { delayDays: bufferDays })); }

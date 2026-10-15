@@ -9,7 +9,8 @@ export function sweepScenario(s, levels = [0.5, 1.0, 1.5]) {
   return levels.map(e => {
     const sc = { ...s, costModel: { ...s.costModel, elasticity: e } };
     const p = plan(sc), pn = plan(sc, { discounts: false });
-    return { elasticity: e, plan: evaluate(p, sc), planNoDisc: evaluate(pn, sc), best: strongestBaseline(sc), smartDisc: evaluate(baselineSmartDiscount(sc), sc), discounts: p.discounts.length };
+    const best = strongestBaseline(sc);
+    return { elasticity: e, plan: evaluate(p, sc), planNoDisc: evaluate(pn, sc), best, smartDisc: evaluate(baselineSmartDiscount(sc), sc), discounts: p.discounts.length, all: best.all };
   });
 }
 
@@ -18,8 +19,11 @@ export function elasticitySweep(scenarios, levels = [0.5, 1.0, 1.5]) {
   for (const sc of scenarios) sweepScenario(sc, levels).forEach((r, i) => per[i].push(r));
   const out = levels.map((e, i) => {
     const R = per[i]; const pn = mean(R.map(r => r.plan.net)), bn = mean(R.map(r => r.best.m.net)), nd = mean(R.map(r => r.planNoDisc.net));
+    const strat = (get) => ({ net: mean(R.map(r => get(r).net)), unsoldRate: mean(R.map(r => get(r).unsoldRate)), trueSpoiledKg: mean(R.map(r => get(r).trueSpoiledKg)), strandedKg: mean(R.map(r => get(r).strandedKg)), expiredKg: mean(R.map(r => get(r).expiredKg)), unmetKg: mean(R.map(r => get(r).unmetKg)), marketSpread: mean(R.map(r => get(r).marketFulfilSpread)), fulfillment: mean(R.map(r => get(r).fulfillment)) });
+    const table = { 'FreshRoute plan': strat(r => r.plan), 'FreshRoute, no discounts': strat(r => r.planNoDisc) };
+    R[0].all.forEach((a, k) => { table[a.name] = strat(r => r.all[k].m); });
     return {
-      elasticity: e, planNet: pn, planNoDiscNet: nd, bestBaseNet: bn, smartDiscNet: mean(R.map(r => r.smartDisc.net)),
+      table, elasticity: e, planNet: pn, planNoDiscNet: nd, bestBaseNet: bn, smartDiscNet: mean(R.map(r => r.smartDisc.net)),
       upliftPct: (pn / bn - 1) * 100, upliftNoDiscPct: (nd / bn - 1) * 100,
       winRate: R.filter(r => r.plan.net > r.best.m.net + 1e-6).length / R.length,
       neverLoseRate: R.filter(r => r.plan.net >= r.best.m.net - 1e-6).length / R.length,

@@ -2,372 +2,1127 @@
  "summary": {
   "seeds": 30,
   "headline": {
-   "rule": "most conservative uplift over elasticity 0.5 / 1.0 / 1.5, vs the strongest of four baselines",
-   "elasticity": 0.5,
-   "planNet": 398155.73333333334,
-   "planNoDiscNet": 398155.73333333334,
-   "bestBaseNet": 395679.6,
-   "smartDiscNet": 344712.7266666666,
-   "upliftPct": 0.6257925183237534,
-   "upliftNoDiscPct": 0.6257925183237534,
-   "winRate": 0.5,
-   "neverLoseRate": 1,
-   "planUnsoldRate": 0.3659500316977723,
-   "bestBaseUnsoldRate": 0.3712776354921823,
-   "planTrueSpoiledKg": 0,
-   "bestBaseTrueSpoiledKg": 0,
-   "planCarryKg": 6295,
-   "bestBaseCarryKg": 6381.666666666667,
-   "planViolationSeeds": 0,
-   "seedMinUpliftPct": 0,
-   "seedMaxUpliftPct": 3.982942274607426,
-   "discountCellsMean": 0,
-   "n": 30
+   "rule": "most conservative uplift over both sets and elasticity 0.5 / 1.0 / 1.5, vs the strongest of four baselines",
+   "upliftPct": 0
   },
-  "sweep": [
-   {
-    "elasticity": 0.5,
-    "planNet": 398155.73333333334,
-    "planNoDiscNet": 398155.73333333334,
-    "bestBaseNet": 395679.6,
-    "smartDiscNet": 344712.7266666666,
-    "upliftPct": 0.6257925183237534,
-    "upliftNoDiscPct": 0.6257925183237534,
-    "winRate": 0.5,
-    "neverLoseRate": 1,
-    "planUnsoldRate": 0.3659500316977723,
-    "bestBaseUnsoldRate": 0.3712776354921823,
-    "planTrueSpoiledKg": 0,
-    "bestBaseTrueSpoiledKg": 0,
-    "planCarryKg": 6295,
-    "bestBaseCarryKg": 6381.666666666667,
-    "planViolationSeeds": 0,
-    "seedMinUpliftPct": 0,
-    "seedMaxUpliftPct": 3.982942274607426,
-    "discountCellsMean": 0,
-    "n": 30
+  "sets": {
+   "default": {
+    "profile": "default",
+    "seeds": 30,
+    "headline": {
+     "table": {
+      "FreshRoute plan": {
+       "net": 404754.8333333333,
+       "unsoldRate": 0.36399222638522666,
+       "trueSpoiledKg": 17.666666666666668,
+       "strandedKg": 0,
+       "expiredKg": 17.666666666666668,
+       "unmetKg": 3918,
+       "marketSpread": 0.833912503600223,
+       "fulfillment": 0.7355330923585721
+      },
+      "FreshRoute, no discounts": {
+       "net": 404754.8333333333,
+       "unsoldRate": 0.36399222638522666,
+       "trueSpoiledKg": 17.666666666666668,
+       "strandedKg": 0,
+       "expiredKg": 17.666666666666668,
+       "unmetKg": 3918,
+       "marketSpread": 0.833912503600223,
+       "fulfillment": 0.7355330923585721
+      },
+      "FIFO to nearest market": {
+       "net": -43.13333333333333,
+       "unsoldRate": 0.6116171047836427,
+       "trueSpoiledKg": 9333,
+       "strandedKg": 0,
+       "expiredKg": 6.333333333333333,
+       "unmetKg": 8185.333333333333,
+       "marketSpread": 0.6468874418447215,
+       "fulfillment": 0.44807386703895064
+      },
+      "FIFO to highest price": {
+       "net": -107426.96666666666,
+       "unsoldRate": 0.7124277708734933,
+       "trueSpoiledKg": 11028,
+       "strandedKg": 0,
+       "expiredKg": 6.333333333333333,
+       "unmetKg": 9880.333333333334,
+       "marketSpread": 0.5631551311067423,
+       "fulfillment": 0.33202565045049176
+      },
+      "Urgent-first, best-margin dispatcher": {
+       "net": 401551.73333333334,
+       "unsoldRate": 0.3700482152966849,
+       "trueSpoiledKg": 17.666666666666668,
+       "strandedKg": 0,
+       "expiredKg": 17.666666666666668,
+       "unmetKg": 4018.6666666666665,
+       "marketSpread": 0.8311863983085207,
+       "fulfillment": 0.7289254143505315
+      },
+      "Dispatcher + flat 30% surplus discount": {
+       "net": 350216.90566666663,
+       "unsoldRate": 0.3267700316189249,
+       "trueSpoiledKg": 14.433333333333334,
+       "strandedKg": 0,
+       "expiredKg": 14.433333333333334,
+       "unmetKg": 4018.6666666666665,
+       "marketSpread": 0.8311863983085207,
+       "fulfillment": 0.7289254143505315
+      }
+     },
+     "elasticity": 0.5,
+     "planNet": 404754.8333333333,
+     "planNoDiscNet": 404754.8333333333,
+     "bestBaseNet": 401551.73333333334,
+     "smartDiscNet": 350216.90566666663,
+     "upliftPct": 0.7976805313254731,
+     "upliftNoDiscPct": 0.7976805313254731,
+     "winRate": 0.5666666666666667,
+     "neverLoseRate": 1,
+     "planUnsoldRate": 0.36399222638522666,
+     "bestBaseUnsoldRate": 0.3700482152966849,
+     "planTrueSpoiledKg": 17.666666666666668,
+     "bestBaseTrueSpoiledKg": 17.666666666666668,
+     "planCarryKg": 6354,
+     "bestBaseCarryKg": 6454.666666666667,
+     "planViolationSeeds": 0,
+     "seedMinUpliftPct": 0,
+     "seedMaxUpliftPct": 4.816755402553197,
+     "discountCellsMean": 0,
+     "n": 30
+    },
+    "sweep": [
+     {
+      "table": {
+       "FreshRoute plan": {
+        "net": 404754.8333333333,
+        "unsoldRate": 0.36399222638522666,
+        "trueSpoiledKg": 17.666666666666668,
+        "strandedKg": 0,
+        "expiredKg": 17.666666666666668,
+        "unmetKg": 3918,
+        "marketSpread": 0.833912503600223,
+        "fulfillment": 0.7355330923585721
+       },
+       "FreshRoute, no discounts": {
+        "net": 404754.8333333333,
+        "unsoldRate": 0.36399222638522666,
+        "trueSpoiledKg": 17.666666666666668,
+        "strandedKg": 0,
+        "expiredKg": 17.666666666666668,
+        "unmetKg": 3918,
+        "marketSpread": 0.833912503600223,
+        "fulfillment": 0.7355330923585721
+       },
+       "FIFO to nearest market": {
+        "net": -43.13333333333333,
+        "unsoldRate": 0.6116171047836427,
+        "trueSpoiledKg": 9333,
+        "strandedKg": 0,
+        "expiredKg": 6.333333333333333,
+        "unmetKg": 8185.333333333333,
+        "marketSpread": 0.6468874418447215,
+        "fulfillment": 0.44807386703895064
+       },
+       "FIFO to highest price": {
+        "net": -107426.96666666666,
+        "unsoldRate": 0.7124277708734933,
+        "trueSpoiledKg": 11028,
+        "strandedKg": 0,
+        "expiredKg": 6.333333333333333,
+        "unmetKg": 9880.333333333334,
+        "marketSpread": 0.5631551311067423,
+        "fulfillment": 0.33202565045049176
+       },
+       "Urgent-first, best-margin dispatcher": {
+        "net": 401551.73333333334,
+        "unsoldRate": 0.3700482152966849,
+        "trueSpoiledKg": 17.666666666666668,
+        "strandedKg": 0,
+        "expiredKg": 17.666666666666668,
+        "unmetKg": 4018.6666666666665,
+        "marketSpread": 0.8311863983085207,
+        "fulfillment": 0.7289254143505315
+       },
+       "Dispatcher + flat 30% surplus discount": {
+        "net": 350216.90566666663,
+        "unsoldRate": 0.3267700316189249,
+        "trueSpoiledKg": 14.433333333333334,
+        "strandedKg": 0,
+        "expiredKg": 14.433333333333334,
+        "unmetKg": 4018.6666666666665,
+        "marketSpread": 0.8311863983085207,
+        "fulfillment": 0.7289254143505315
+       }
+      },
+      "elasticity": 0.5,
+      "planNet": 404754.8333333333,
+      "planNoDiscNet": 404754.8333333333,
+      "bestBaseNet": 401551.73333333334,
+      "smartDiscNet": 350216.90566666663,
+      "upliftPct": 0.7976805313254731,
+      "upliftNoDiscPct": 0.7976805313254731,
+      "winRate": 0.5666666666666667,
+      "neverLoseRate": 1,
+      "planUnsoldRate": 0.36399222638522666,
+      "bestBaseUnsoldRate": 0.3700482152966849,
+      "planTrueSpoiledKg": 17.666666666666668,
+      "bestBaseTrueSpoiledKg": 17.666666666666668,
+      "planCarryKg": 6354,
+      "bestBaseCarryKg": 6454.666666666667,
+      "planViolationSeeds": 0,
+      "seedMinUpliftPct": 0,
+      "seedMaxUpliftPct": 4.816755402553197,
+      "discountCellsMean": 0,
+      "n": 30
+     },
+     {
+      "table": {
+       "FreshRoute plan": {
+        "net": 405894.02533333324,
+        "unsoldRate": 0.34770115379819894,
+        "trueSpoiledKg": 13.333333333333334,
+        "strandedKg": 0,
+        "expiredKg": 13.333333333333334,
+        "unmetKg": 3918,
+        "marketSpread": 0.8316320800805767,
+        "fulfillment": 0.7355330923585721
+       },
+       "FreshRoute, no discounts": {
+        "net": 404754.8333333333,
+        "unsoldRate": 0.36399222638522666,
+        "trueSpoiledKg": 17.666666666666668,
+        "strandedKg": 0,
+        "expiredKg": 17.666666666666668,
+        "unmetKg": 3918,
+        "marketSpread": 0.833912503600223,
+        "fulfillment": 0.7355330923585721
+       },
+       "FIFO to nearest market": {
+        "net": -43.13333333333333,
+        "unsoldRate": 0.6116171047836427,
+        "trueSpoiledKg": 9333,
+        "strandedKg": 0,
+        "expiredKg": 6.333333333333333,
+        "unmetKg": 8185.333333333333,
+        "marketSpread": 0.6468874418447215,
+        "fulfillment": 0.44807386703895064
+       },
+       "FIFO to highest price": {
+        "net": -107426.96666666666,
+        "unsoldRate": 0.7124277708734933,
+        "trueSpoiledKg": 11028,
+        "strandedKg": 0,
+        "expiredKg": 6.333333333333333,
+        "unmetKg": 9880.333333333334,
+        "marketSpread": 0.5631551311067423,
+        "fulfillment": 0.33202565045049176
+       },
+       "Urgent-first, best-margin dispatcher": {
+        "net": 401551.73333333334,
+        "unsoldRate": 0.3700482152966849,
+        "trueSpoiledKg": 17.666666666666668,
+        "strandedKg": 0,
+        "expiredKg": 17.666666666666668,
+        "unmetKg": 4018.6666666666665,
+        "marketSpread": 0.8311863983085207,
+        "fulfillment": 0.7289254143505315
+       },
+       "Dispatcher + flat 30% surplus discount": {
+        "net": 381151.97233333334,
+        "unsoldRate": 0.29454049113446135,
+        "trueSpoiledKg": 11.166666666666666,
+        "strandedKg": 0,
+        "expiredKg": 11.166666666666666,
+        "unmetKg": 4018.6666666666665,
+        "marketSpread": 0.8311863983085207,
+        "fulfillment": 0.7289254143505315
+       }
+      },
+      "elasticity": 1,
+      "planNet": 405894.02533333324,
+      "planNoDiscNet": 404754.8333333333,
+      "bestBaseNet": 401551.73333333334,
+      "smartDiscNet": 381151.97233333334,
+      "upliftPct": 1.0813779743780394,
+      "upliftNoDiscPct": 0.7976805313254731,
+      "winRate": 1,
+      "neverLoseRate": 1,
+      "planUnsoldRate": 0.34770115379819894,
+      "bestBaseUnsoldRate": 0.3700482152966849,
+      "planTrueSpoiledKg": 13.333333333333334,
+      "bestBaseTrueSpoiledKg": 17.666666666666668,
+      "planCarryKg": 6077.133333333333,
+      "bestBaseCarryKg": 6454.666666666667,
+      "planViolationSeeds": 0,
+      "seedMinUpliftPct": 0.1136521684678371,
+      "seedMaxUpliftPct": 4.826762414508767,
+      "discountCellsMean": 6.333333333333333,
+      "n": 30
+     },
+     {
+      "table": {
+       "FreshRoute plan": {
+        "net": 424312.0786666667,
+        "unsoldRate": 0.28275428981924844,
+        "trueSpoiledKg": 9.666666666666666,
+        "strandedKg": 0,
+        "expiredKg": 9.666666666666666,
+        "unmetKg": 3977.633333333333,
+        "marketSpread": 0.8360428157158842,
+        "fulfillment": 0.7315903380944387
+       },
+       "FreshRoute, no discounts": {
+        "net": 404754.8333333333,
+        "unsoldRate": 0.36399222638522666,
+        "trueSpoiledKg": 17.666666666666668,
+        "strandedKg": 0,
+        "expiredKg": 17.666666666666668,
+        "unmetKg": 3918,
+        "marketSpread": 0.833912503600223,
+        "fulfillment": 0.7355330923585721
+       },
+       "FIFO to nearest market": {
+        "net": -43.13333333333333,
+        "unsoldRate": 0.6116171047836427,
+        "trueSpoiledKg": 9333,
+        "strandedKg": 0,
+        "expiredKg": 6.333333333333333,
+        "unmetKg": 8185.333333333333,
+        "marketSpread": 0.6468874418447215,
+        "fulfillment": 0.44807386703895064
+       },
+       "FIFO to highest price": {
+        "net": -107426.96666666666,
+        "unsoldRate": 0.7124277708734933,
+        "trueSpoiledKg": 11028,
+        "strandedKg": 0,
+        "expiredKg": 6.333333333333333,
+        "unmetKg": 9880.333333333334,
+        "marketSpread": 0.5631551311067423,
+        "fulfillment": 0.33202565045049176
+       },
+       "Urgent-first, best-margin dispatcher": {
+        "net": 401551.73333333334,
+        "unsoldRate": 0.3700482152966849,
+        "trueSpoiledKg": 17.666666666666668,
+        "strandedKg": 0,
+        "expiredKg": 17.666666666666668,
+        "unmetKg": 4018.6666666666665,
+        "marketSpread": 0.8311863983085207,
+        "fulfillment": 0.7289254143505315
+       },
+       "Dispatcher + flat 30% surplus discount": {
+        "net": 402910.89733333327,
+        "unsoldRate": 0.2714732233576813,
+        "trueSpoiledKg": 7.933333333333334,
+        "strandedKg": 0,
+        "expiredKg": 7.933333333333334,
+        "unmetKg": 4018.6666666666665,
+        "marketSpread": 0.8311863983085207,
+        "fulfillment": 0.7289254143505315
+       }
+      },
+      "elasticity": 1.5,
+      "planNet": 424312.0786666667,
+      "planNoDiscNet": 404754.8333333333,
+      "bestBaseNet": 407561.33466666663,
+      "smartDiscNet": 402910.89733333327,
+      "upliftPct": 4.109993410856805,
+      "upliftNoDiscPct": -0.6886083380869934,
+      "winRate": 1,
+      "neverLoseRate": 1,
+      "planUnsoldRate": 0.28275428981924844,
+      "bestBaseUnsoldRate": 0.29779847123671,
+      "planTrueSpoiledKg": 9.666666666666666,
+      "bestBaseTrueSpoiledKg": 7.933333333333334,
+      "planCarryKg": 4963.633333333333,
+      "bestBaseCarryKg": 5222.366666666667,
+      "planViolationSeeds": 0,
+      "seedMinUpliftPct": 0.44162227685700106,
+      "seedMaxUpliftPct": 8.794802118171674,
+      "discountCellsMean": 12.433333333333334,
+      "n": 30
+     }
+    ],
+    "violationSeedsByElasticity": [
+     0,
+     0,
+     0
+    ],
+    "stress": [
+     {
+      "elasticity": 0.5,
+      "draws": 300,
+      "wins": 223,
+      "planNet": 54419.24700000001,
+      "baseNet": 53782.442,
+      "planP10": -242781.05,
+      "planP90": 325672.98000000004,
+      "baseP10": -243138.13000000003,
+      "baseP90": 323954.91000000003,
+      "planSpoiledKg": 5371.403333333334,
+      "baseSpoiledKg": 5318.996666666667,
+      "planExpiredKg": 48.733333333333334,
+      "baseExpiredKg": 48.733333333333334,
+      "nominalPlanNet": 54419.24700000001
+     },
+     {
+      "elasticity": 1,
+      "draws": 300,
+      "wins": 124,
+      "planNet": 51260.85085333335,
+      "baseNet": 53782.442,
+      "planP10": -246778.03050000002,
+      "planP90": 324810.0628,
+      "baseP10": -243138.13000000003,
+      "baseP90": 323954.91000000003,
+      "planSpoiledKg": 5491.0380000000005,
+      "baseSpoiledKg": 5318.996666666667,
+      "planExpiredKg": 40.973333333333336,
+      "baseExpiredKg": 48.733333333333334,
+      "nominalPlanNet": 51260.85085333335
+     },
+     {
+      "elasticity": 1.5,
+      "draws": 300,
+      "wins": 225,
+      "planNet": 60777.12699333334,
+      "baseNet": 51564.041523333326,
+      "planP10": -256585.44575,
+      "planP90": 351412.37919999997,
+      "baseP10": -259835.13369999998,
+      "baseP90": 335528.88435,
+      "planSpoiledKg": 5950.154166666666,
+      "baseSpoiledKg": 5821.278666666666,
+      "planExpiredKg": 32.693333333333335,
+      "baseExpiredKg": 30.366666666666667,
+      "nominalPlanNet": 60777.12699333334
+     }
+    ],
+    "delayRuns": [
+     {
+      "elasticity": 0.5,
+      "runs": 300,
+      "rows": [
+       {
+        "name": "FreshRoute plan",
+        "net": 168715.79,
+        "spoiledKg": 3260.733333333333,
+        "expiredKg": 17.666666666666668,
+        "fulfillment": 0.5170130341050926
+       },
+       {
+        "name": "FreshRoute plan, +0.25 d buffer",
+        "net": 85960.56333333334,
+        "spoiledKg": 2328,
+        "expiredKg": 17.666666666666668,
+        "fulfillment": 0.3875598639965161
+       },
+       {
+        "name": "FIFO to nearest market",
+        "net": -138412.29666666666,
+        "spoiledKg": 11250.433333333332,
+        "expiredKg": 6.333333333333333,
+        "fulfillment": 0.31863210503860695
+       },
+       {
+        "name": "FIFO to highest price",
+        "net": -218495.77333333335,
+        "spoiledKg": 12476.9,
+        "expiredKg": 6.333333333333333,
+        "fulfillment": 0.2346377902196014
+       },
+       {
+        "name": "Urgent-first, best-margin dispatcher",
+        "net": 167238.02,
+        "spoiledKg": 3227.9666666666667,
+        "expiredKg": 17.666666666666668,
+        "fulfillment": 0.5125617997209676
+       },
+       {
+        "name": "Dispatcher + flat 30% surplus discount",
+        "net": 127084.38603333342,
+        "spoiledKg": 3447.653333333333,
+        "expiredKg": 14.433333333333334,
+        "fulfillment": 0.5126173864942039
+       }
+      ]
+     },
+     {
+      "elasticity": 1,
+      "runs": 300,
+      "rows": [
+       {
+        "name": "FreshRoute plan",
+        "net": 167873.27530000018,
+        "spoiledKg": 3335.693333333333,
+        "expiredKg": 13.333333333333334,
+        "fulfillment": 0.5170932145677172
+       },
+       {
+        "name": "FreshRoute plan, +0.25 d buffer",
+        "net": 85072.29716666669,
+        "spoiledKg": 2397.6866666666665,
+        "expiredKg": 13.333333333333334,
+        "fulfillment": 0.3873220276009251
+       },
+       {
+        "name": "FIFO to nearest market",
+        "net": -138412.29666666666,
+        "spoiledKg": 11250.433333333332,
+        "expiredKg": 6.333333333333333,
+        "fulfillment": 0.31863210503860695
+       },
+       {
+        "name": "FIFO to highest price",
+        "net": -218495.77333333335,
+        "spoiledKg": 12476.9,
+        "expiredKg": 6.333333333333333,
+        "fulfillment": 0.2346377902196014
+       },
+       {
+        "name": "Urgent-first, best-margin dispatcher",
+        "net": 167238.02,
+        "spoiledKg": 3227.9666666666667,
+        "expiredKg": 17.666666666666668,
+        "fulfillment": 0.5125617997209676
+       },
+       {
+        "name": "Dispatcher + flat 30% surplus discount",
+        "net": 146076.4882000001,
+        "spoiledKg": 3607.2833333333333,
+        "expiredKg": 11.166666666666666,
+        "fulfillment": 0.5126628312762275
+       }
+      ]
+     },
+     {
+      "elasticity": 1.5,
+      "runs": 300,
+      "rows": [
+       {
+        "name": "FreshRoute plan",
+        "net": 174513.4610333334,
+        "spoiledKg": 3658.8133333333335,
+        "expiredKg": 9.666666666666666,
+        "fulfillment": 0.5145537262874559
+       },
+       {
+        "name": "FreshRoute plan, +0.25 d buffer",
+        "net": 91541.75816666652,
+        "spoiledKg": 2594.2466666666664,
+        "expiredKg": 7.933333333333334,
+        "fulfillment": 0.383831371375815
+       },
+       {
+        "name": "FIFO to nearest market",
+        "net": -138412.29666666666,
+        "spoiledKg": 11250.433333333332,
+        "expiredKg": 6.333333333333333,
+        "fulfillment": 0.31863210503860695
+       },
+       {
+        "name": "FIFO to highest price",
+        "net": -218495.77333333335,
+        "spoiledKg": 12476.9,
+        "expiredKg": 6.333333333333333,
+        "fulfillment": 0.2346377902196014
+       },
+       {
+        "name": "Urgent-first, best-margin dispatcher",
+        "net": 167238.02,
+        "spoiledKg": 3227.9666666666667,
+        "expiredKg": 17.666666666666668,
+        "fulfillment": 0.5125617997209676
+       },
+       {
+        "name": "Dispatcher + flat 30% surplus discount",
+        "net": 159192.39649999997,
+        "spoiledKg": 3724.35,
+        "expiredKg": 7.933333333333334,
+        "fulfillment": 0.5127104788109096
+       }
+      ]
+     }
+    ],
+    "maxPlanMs": 31
    },
-   {
-    "elasticity": 1,
-    "planNet": 399285.945,
-    "planNoDiscNet": 398155.73333333334,
-    "bestBaseNet": 395679.6,
-    "smartDiscNet": 374581.7686666667,
-    "upliftPct": 0.9114306120406646,
-    "upliftNoDiscPct": 0.6257925183237534,
-    "winRate": 1,
-    "neverLoseRate": 1,
-    "planUnsoldRate": 0.34877905133227194,
-    "bestBaseUnsoldRate": 0.3712776354921823,
-    "planTrueSpoiledKg": 0,
-    "bestBaseTrueSpoiledKg": 0,
-    "planCarryKg": 6005.766666666666,
-    "bestBaseCarryKg": 6381.666666666667,
-    "planViolationSeeds": 0,
-    "seedMinUpliftPct": 0.029026830664480308,
-    "seedMaxUpliftPct": 3.9933379699110594,
-    "discountCellsMean": 6.566666666666666,
-    "n": 30
-   },
-   {
-    "elasticity": 1.5,
-    "planNet": 418508.3090000001,
-    "planNoDiscNet": 398155.73333333334,
-    "bestBaseNet": 402124.78133333323,
-    "smartDiscNet": 398695.5956666666,
-    "upliftPct": 4.0742397452710355,
-    "upliftNoDiscPct": -0.9870190011268765,
-    "winRate": 1,
-    "neverLoseRate": 1,
-    "planUnsoldRate": 0.2789243394208097,
-    "bestBaseUnsoldRate": 0.29989535278859775,
-    "planTrueSpoiledKg": 7.579122514774402e-15,
-    "bestBaseTrueSpoiledKg": 0,
-    "planCarryKg": 4839.3,
-    "bestBaseCarryKg": 5216.266666666666,
-    "planViolationSeeds": 0,
-    "seedMinUpliftPct": 0.41081309268193866,
-    "seedMaxUpliftPct": 8.469853552979378,
-    "discountCellsMean": 12.4,
-    "n": 30
+   "shelf-life-binding": {
+    "profile": "shelf-life-binding",
+    "seeds": 30,
+    "headline": {
+     "table": {
+      "FreshRoute plan": {
+       "net": 26771.8,
+       "unsoldRate": 0.7441129963784415,
+       "trueSpoiledKg": 1223,
+       "strandedKg": 1200,
+       "expiredKg": 1223,
+       "unmetKg": 3850,
+       "marketSpread": 0.9862569045068238,
+       "fulfillment": 0.5319131540453211
+      },
+      "FreshRoute, no discounts": {
+       "net": 26771.8,
+       "unsoldRate": 0.7441129963784415,
+       "trueSpoiledKg": 1223,
+       "strandedKg": 1200,
+       "expiredKg": 1223,
+       "unmetKg": 3850,
+       "marketSpread": 0.9862569045068238,
+       "fulfillment": 0.5319131540453211
+      },
+      "FIFO to nearest market": {
+       "net": -298755,
+       "unsoldRate": 0.8581695760685158,
+       "trueSpoiledKg": 13676.333333333334,
+       "strandedKg": 25,
+       "expiredKg": 69,
+       "unmetKg": 5775,
+       "marketSpread": 0.6820944997528842,
+       "fulfillment": 0.295036979317529
+      },
+      "FIFO to highest price": {
+       "net": -338055.3333333333,
+       "unsoldRate": 0.8914236498729726,
+       "trueSpoiledKg": 14237.333333333334,
+       "strandedKg": 25,
+       "expiredKg": 69,
+       "unmetKg": 6336,
+       "marketSpread": 0.5641709645584021,
+       "fulfillment": 0.22666163549382726
+      },
+      "Urgent-first, best-margin dispatcher": {
+       "net": 26771.8,
+       "unsoldRate": 0.7441129963784415,
+       "trueSpoiledKg": 1223,
+       "strandedKg": 1200,
+       "expiredKg": 1223,
+       "unmetKg": 3850,
+       "marketSpread": 0.9862569045068238,
+       "fulfillment": 0.5319131540453211
+      },
+      "Dispatcher + flat 30% surplus discount": {
+       "net": -8634.08266666666,
+       "unsoldRate": 0.7086357659351223,
+       "trueSpoiledKg": 1211.4333333333334,
+       "strandedKg": 1200,
+       "expiredKg": 1211.4333333333334,
+       "unmetKg": 3850,
+       "marketSpread": 0.9862569045068238,
+       "fulfillment": 0.5319131540453211
+      }
+     },
+     "elasticity": 0.5,
+     "planNet": 26771.8,
+     "planNoDiscNet": 26771.8,
+     "bestBaseNet": 26771.8,
+     "smartDiscNet": -8634.08266666666,
+     "upliftPct": 0,
+     "upliftNoDiscPct": 0,
+     "winRate": 0,
+     "neverLoseRate": 1,
+     "planUnsoldRate": 0.7441129963784415,
+     "bestBaseUnsoldRate": 0.7441129963784415,
+     "planTrueSpoiledKg": 1223,
+     "bestBaseTrueSpoiledKg": 1223,
+     "planCarryKg": 11496.333333333334,
+     "bestBaseCarryKg": 11496.333333333334,
+     "planViolationSeeds": 0,
+     "seedMinUpliftPct": 0,
+     "seedMaxUpliftPct": 0,
+     "discountCellsMean": 0,
+     "n": 30
+    },
+    "sweep": [
+     {
+      "table": {
+       "FreshRoute plan": {
+        "net": 26771.8,
+        "unsoldRate": 0.7441129963784415,
+        "trueSpoiledKg": 1223,
+        "strandedKg": 1200,
+        "expiredKg": 1223,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
+       },
+       "FreshRoute, no discounts": {
+        "net": 26771.8,
+        "unsoldRate": 0.7441129963784415,
+        "trueSpoiledKg": 1223,
+        "strandedKg": 1200,
+        "expiredKg": 1223,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
+       },
+       "FIFO to nearest market": {
+        "net": -298755,
+        "unsoldRate": 0.8581695760685158,
+        "trueSpoiledKg": 13676.333333333334,
+        "strandedKg": 25,
+        "expiredKg": 69,
+        "unmetKg": 5775,
+        "marketSpread": 0.6820944997528842,
+        "fulfillment": 0.295036979317529
+       },
+       "FIFO to highest price": {
+        "net": -338055.3333333333,
+        "unsoldRate": 0.8914236498729726,
+        "trueSpoiledKg": 14237.333333333334,
+        "strandedKg": 25,
+        "expiredKg": 69,
+        "unmetKg": 6336,
+        "marketSpread": 0.5641709645584021,
+        "fulfillment": 0.22666163549382726
+       },
+       "Urgent-first, best-margin dispatcher": {
+        "net": 26771.8,
+        "unsoldRate": 0.7441129963784415,
+        "trueSpoiledKg": 1223,
+        "strandedKg": 1200,
+        "expiredKg": 1223,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
+       },
+       "Dispatcher + flat 30% surplus discount": {
+        "net": -8634.08266666666,
+        "unsoldRate": 0.7086357659351223,
+        "trueSpoiledKg": 1211.4333333333334,
+        "strandedKg": 1200,
+        "expiredKg": 1211.4333333333334,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
+       }
+      },
+      "elasticity": 0.5,
+      "planNet": 26771.8,
+      "planNoDiscNet": 26771.8,
+      "bestBaseNet": 26771.8,
+      "smartDiscNet": -8634.08266666666,
+      "upliftPct": 0,
+      "upliftNoDiscPct": 0,
+      "winRate": 0,
+      "neverLoseRate": 1,
+      "planUnsoldRate": 0.7441129963784415,
+      "bestBaseUnsoldRate": 0.7441129963784415,
+      "planTrueSpoiledKg": 1223,
+      "bestBaseTrueSpoiledKg": 1223,
+      "planCarryKg": 11496.333333333334,
+      "bestBaseCarryKg": 11496.333333333334,
+      "planViolationSeeds": 0,
+      "seedMinUpliftPct": 0,
+      "seedMaxUpliftPct": 0,
+      "discountCellsMean": 0,
+      "n": 30
+     },
+     {
+      "table": {
+       "FreshRoute plan": {
+        "net": 27537.008666666665,
+        "unsoldRate": 0.732590647474505,
+        "trueSpoiledKg": 1209.1666666666667,
+        "strandedKg": 1200,
+        "expiredKg": 1209.1666666666667,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
+       },
+       "FreshRoute, no discounts": {
+        "net": 26771.8,
+        "unsoldRate": 0.7441129963784415,
+        "trueSpoiledKg": 1223,
+        "strandedKg": 1200,
+        "expiredKg": 1223,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
+       },
+       "FIFO to nearest market": {
+        "net": -298755,
+        "unsoldRate": 0.8581695760685158,
+        "trueSpoiledKg": 13676.333333333334,
+        "strandedKg": 25,
+        "expiredKg": 69,
+        "unmetKg": 5775,
+        "marketSpread": 0.6820944997528842,
+        "fulfillment": 0.295036979317529
+       },
+       "FIFO to highest price": {
+        "net": -338055.3333333333,
+        "unsoldRate": 0.8914236498729726,
+        "trueSpoiledKg": 14237.333333333334,
+        "strandedKg": 25,
+        "expiredKg": 69,
+        "unmetKg": 6336,
+        "marketSpread": 0.5641709645584021,
+        "fulfillment": 0.22666163549382726
+       },
+       "Urgent-first, best-margin dispatcher": {
+        "net": 26771.8,
+        "unsoldRate": 0.7441129963784415,
+        "trueSpoiledKg": 1223,
+        "strandedKg": 1200,
+        "expiredKg": 1223,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
+       },
+       "Dispatcher + flat 30% surplus discount": {
+        "net": 15110.834999999988,
+        "unsoldRate": 0.6739936170045947,
+        "trueSpoiledKg": 1199.6666666666667,
+        "strandedKg": 1200,
+        "expiredKg": 1199.6666666666667,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
+       }
+      },
+      "elasticity": 1,
+      "planNet": 27537.008666666665,
+      "planNoDiscNet": 26771.8,
+      "bestBaseNet": 26771.8,
+      "smartDiscNet": 15110.834999999988,
+      "upliftPct": 2.8582637949882583,
+      "upliftNoDiscPct": 0,
+      "winRate": 1,
+      "neverLoseRate": 1,
+      "planUnsoldRate": 0.732590647474505,
+      "bestBaseUnsoldRate": 0.7441129963784415,
+      "planTrueSpoiledKg": 1209.1666666666667,
+      "bestBaseTrueSpoiledKg": 1223,
+      "planCarryKg": 11314.5,
+      "bestBaseCarryKg": 11496.333333333334,
+      "planViolationSeeds": 0,
+      "seedMinUpliftPct": -6.293816084588233,
+      "seedMaxUpliftPct": 40.626262626262324,
+      "discountCellsMean": 7.2,
+      "n": 30
+     },
+     {
+      "table": {
+       "FreshRoute plan": {
+        "net": 40966.06100000001,
+        "unsoldRate": 0.6724616468189967,
+        "trueSpoiledKg": 1188.2666666666667,
+        "strandedKg": 1200,
+        "expiredKg": 1188.2666666666667,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
+       },
+       "FreshRoute, no discounts": {
+        "net": 26771.8,
+        "unsoldRate": 0.7441129963784415,
+        "trueSpoiledKg": 1223,
+        "strandedKg": 1200,
+        "expiredKg": 1223,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
+       },
+       "FIFO to nearest market": {
+        "net": -298755,
+        "unsoldRate": 0.8581695760685158,
+        "trueSpoiledKg": 13676.333333333334,
+        "strandedKg": 25,
+        "expiredKg": 69,
+        "unmetKg": 5775,
+        "marketSpread": 0.6820944997528842,
+        "fulfillment": 0.295036979317529
+       },
+       "FIFO to highest price": {
+        "net": -338055.3333333333,
+        "unsoldRate": 0.8914236498729726,
+        "trueSpoiledKg": 14237.333333333334,
+        "strandedKg": 25,
+        "expiredKg": 69,
+        "unmetKg": 6336,
+        "marketSpread": 0.5641709645584021,
+        "fulfillment": 0.22666163549382726
+       },
+       "Urgent-first, best-margin dispatcher": {
+        "net": 26771.8,
+        "unsoldRate": 0.7441129963784415,
+        "trueSpoiledKg": 1223,
+        "strandedKg": 1200,
+        "expiredKg": 1223,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
+       },
+       "Dispatcher + flat 30% surplus discount": {
+        "net": 37718.63699999999,
+        "unsoldRate": 0.6418582287425123,
+        "trueSpoiledKg": 1188.2666666666667,
+        "strandedKg": 1200,
+        "expiredKg": 1188.2666666666667,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
+       }
+      },
+      "elasticity": 1.5,
+      "planNet": 40966.06100000001,
+      "planNoDiscNet": 26771.8,
+      "bestBaseNet": 37718.63699999999,
+      "smartDiscNet": 37718.63699999999,
+      "upliftPct": 8.609600606724,
+      "upliftNoDiscPct": -29.022355712376335,
+      "winRate": 1,
+      "neverLoseRate": 1,
+      "planUnsoldRate": 0.6724616468189967,
+      "bestBaseUnsoldRate": 0.6418582287425123,
+      "planTrueSpoiledKg": 1188.2666666666667,
+      "bestBaseTrueSpoiledKg": 1188.2666666666667,
+      "planCarryKg": 10316.766666666666,
+      "bestBaseCarryKg": 9797.6,
+      "planViolationSeeds": 0,
+      "seedMinUpliftPct": -35.52300021240665,
+      "seedMaxUpliftPct": 92.85902977906011,
+      "discountCellsMean": 14.033333333333333,
+      "n": 30
+     }
+    ],
+    "violationSeedsByElasticity": [
+     0,
+     0,
+     0
+    ],
+    "stress": [
+     {
+      "elasticity": 0.5,
+      "draws": 300,
+      "wins": 300,
+      "planNet": -161269.28666666668,
+      "baseNet": -161269.28666666668,
+      "planP10": -237481.88999999998,
+      "planP90": -49574.18000000001,
+      "baseP10": -237481.88999999998,
+      "baseP90": -49574.18000000001,
+      "planSpoiledKg": 5040.513333333333,
+      "baseSpoiledKg": 5040.513333333333,
+      "planExpiredKg": 2283.5666666666666,
+      "baseExpiredKg": 2283.5666666666666,
+      "nominalPlanNet": -161269.28666666668
+     },
+     {
+      "elasticity": 1,
+      "draws": 300,
+      "wins": 79,
+      "planNet": -162743.12300999998,
+      "baseNet": -161269.28666666668,
+      "planP10": -239305.40930000003,
+      "planP90": -49914.6804,
+      "baseP10": -237481.88999999998,
+      "baseP90": -49574.18000000001,
+      "planSpoiledKg": 5125.507333333333,
+      "baseSpoiledKg": 5040.513333333333,
+      "planExpiredKg": 2249.8466666666673,
+      "baseExpiredKg": 2283.5666666666666,
+      "nominalPlanNet": -162743.12300999998
+     },
+     {
+      "elasticity": 1.5,
+      "draws": 300,
+      "wins": 254,
+      "planNet": -162493.96202,
+      "baseNet": -166294.17711,
+      "planP10": -249830.89664999995,
+      "planP90": -37944.166800000006,
+      "baseP10": -254674.32964999997,
+      "baseP90": -40487.81475000002,
+      "planSpoiledKg": 5581.926333333333,
+      "baseSpoiledKg": 5838.500666666668,
+      "planExpiredKg": 2175.9766666666665,
+      "baseExpiredKg": 2146.3333333333335,
+      "nominalPlanNet": -162493.96202
+     }
+    ],
+    "delayRuns": [
+     {
+      "elasticity": 0.5,
+      "runs": 300,
+      "rows": [
+       {
+        "name": "FreshRoute plan",
+        "net": -69365.83,
+        "spoiledKg": 2602.6666666666665,
+        "expiredKg": 1223,
+        "fulfillment": 0.36332138756329657
+       },
+       {
+        "name": "FreshRoute plan, +0.25 d buffer",
+        "net": -103497.39,
+        "spoiledKg": 2306,
+        "expiredKg": 1261.6666666666667,
+        "fulfillment": 0.2716985432576086
+       },
+       {
+        "name": "FIFO to nearest market",
+        "net": -349492.25666666665,
+        "spoiledKg": 14410.366666666667,
+        "expiredKg": 69,
+        "fulfillment": 0.20534044938494347
+       },
+       {
+        "name": "FIFO to highest price",
+        "net": -378026.3333333333,
+        "spoiledKg": 14824.733333333334,
+        "expiredKg": 69,
+        "fulfillment": 0.15454726402410982
+       },
+       {
+        "name": "Urgent-first, best-margin dispatcher",
+        "net": -69365.83,
+        "spoiledKg": 2602.6666666666665,
+        "expiredKg": 1223,
+        "fulfillment": 0.36332138756329657
+       },
+       {
+        "name": "Dispatcher + flat 30% surplus discount",
+        "net": -96612.95179999997,
+        "spoiledKg": 2781.93,
+        "expiredKg": 1211.4333333333334,
+        "fulfillment": 0.3636677578180414
+       }
+      ]
+     },
+     {
+      "elasticity": 1,
+      "runs": 300,
+      "rows": [
+       {
+        "name": "FreshRoute plan",
+        "net": -70054.53266666661,
+        "spoiledKg": 2653.35,
+        "expiredKg": 1209.1666666666667,
+        "fulfillment": 0.3632962564205354
+       },
+       {
+        "name": "FreshRoute plan, +0.25 d buffer",
+        "net": -103994.82616666667,
+        "spoiledKg": 2349.4866666666667,
+        "expiredKg": 1253.7666666666667,
+        "fulfillment": 0.2717094841766458
+       },
+       {
+        "name": "FIFO to nearest market",
+        "net": -349492.25666666665,
+        "spoiledKg": 14410.366666666667,
+        "expiredKg": 69,
+        "fulfillment": 0.20534044938494347
+       },
+       {
+        "name": "FIFO to highest price",
+        "net": -378026.3333333333,
+        "spoiledKg": 14824.733333333334,
+        "expiredKg": 69,
+        "fulfillment": 0.15454726402410982
+       },
+       {
+        "name": "Urgent-first, best-margin dispatcher",
+        "net": -69365.83,
+        "spoiledKg": 2602.6666666666665,
+        "expiredKg": 1223,
+        "fulfillment": 0.36332138756329657
+       },
+       {
+        "name": "Dispatcher + flat 30% surplus discount",
+        "net": -83401.7495,
+        "spoiledKg": 2958.6033333333335,
+        "expiredKg": 1199.6666666666667,
+        "fulfillment": 0.36407157602701473
+       }
+      ]
+     },
+     {
+      "elasticity": 1.5,
+      "runs": 300,
+      "rows": [
+       {
+        "name": "FreshRoute plan",
+        "net": -66019.76090000001,
+        "spoiledKg": 2957.61,
+        "expiredKg": 1188.2666666666667,
+        "fulfillment": 0.36418439462245755
+       },
+       {
+        "name": "FreshRoute plan, +0.25 d buffer",
+        "net": -100838.28400000007,
+        "spoiledKg": 2598.3933333333334,
+        "expiredKg": 1241.1666666666667,
+        "fulfillment": 0.2717094841766458
+       },
+       {
+        "name": "FIFO to nearest market",
+        "net": -349492.25666666665,
+        "spoiledKg": 14410.366666666667,
+        "expiredKg": 69,
+        "fulfillment": 0.20534044938494347
+       },
+       {
+        "name": "FIFO to highest price",
+        "net": -378026.3333333333,
+        "spoiledKg": 14824.733333333334,
+        "expiredKg": 69,
+        "fulfillment": 0.15454726402410982
+       },
+       {
+        "name": "Urgent-first, best-margin dispatcher",
+        "net": -69365.83,
+        "spoiledKg": 2602.6666666666665,
+        "expiredKg": 1223,
+        "fulfillment": 0.36332138756329657
+       },
+       {
+        "name": "Dispatcher + flat 30% surplus discount",
+        "net": -70883.75223333333,
+        "spoiledKg": 3124.7233333333334,
+        "expiredKg": 1188.2666666666667,
+        "fulfillment": 0.36449271895599916
+       }
+      ]
+     }
+    ],
+    "maxPlanMs": 13
    }
-  ],
-  "S1_unsold": {
-   "metric": "share of stock kg not sold this round (undispatched carry-over written off + unsold at market + real spoilage)",
-   "plan": [
-    0.3659500316977723,
-    0.34877905133227194,
-    0.2789243394208097
-   ],
-   "bestBaseline": [
-    0.3712776354921823,
-    0.3712776354921823,
-    0.29989535278859775
-   ],
-   "planRealSpoiledKg": [
-    0,
-    0,
-    7.579122514774402e-15
-   ],
-   "bestBaselineRealSpoiledKg": [
-    0,
-    0,
-    0
-   ]
   },
-  "S4_violations": {
-   "planSeedsWithViolations": 0,
-   "atAllElasticities": [
-    0,
-    0,
-    0
-   ]
-  },
-  "S5_stress": [
-   {
-    "elasticity": 0.5,
-    "planFixedBeatsStrongestBaselineFixed": 0.6933333333333334,
-    "wins": 208,
-    "draws": 300,
-    "replannedWithKnownValuesOracle": 1,
-    "meanNetFixedPlan": 50552.32833333333,
-    "meanNetFixedBaseline": 49489.75733333333
+  "badDayDecomposition": {
+   "normal day": {
+    "planNet": 446897.544,
+    "baseNet": 442274.9000000001,
+    "planSpoiledKg": 22
    },
-   {
-    "elasticity": 1,
-    "planFixedBeatsStrongestBaselineFixed": 0.44,
-    "wins": 132,
-    "draws": 300,
-    "replannedWithKnownValuesOracle": 1,
-    "meanNetFixedPlan": 51334.786153333356,
-    "meanNetFixedBaseline": 49489.75733333333
+   "shelf life -10% only": {
+    "planNet": 384829.006,
+    "baseNet": 384335.5999999999,
+    "planSpoiledKg": 1100.7
    },
-   {
-    "elasticity": 1.5,
-    "planFixedBeatsStrongestBaselineFixed": 0.6233333333333333,
-    "wins": 187,
-    "draws": 300,
-    "replannedWithKnownValuesOracle": 1,
-    "meanNetFixedPlan": 50707.262913333354,
-    "meanNetFixedBaseline": 46879.634179999994
+   "trips +0.25 d only": {
+    "planNet": 162498.52799999996,
+    "baseNet": 161984.4,
+    "planSpoiledKg": 3908.7999999999997
+   },
+   "demand -5% only": {
+    "planNet": 407920.1219,
+    "baseNet": 403654.93000000005,
+    "planSpoiledKg": 545.9899999999998
+   },
+   "all three": {
+    "planNet": 99763.54630000003,
+    "baseNet": 105786.38000000002,
+    "planSpoiledKg": 4801.64
    }
-  ],
-  "S3_fulfilment": {
-   "plan": 0.7256993574886336
   },
-  "S6_maxPlanMs": 38,
-  "totalMs": 15909
- },
- "rows": [
-  {
-   "seed": 1000,
-   "net": 481350,
-   "unsoldRate": 0.39285714285714285,
-   "fulfil": 0.7431137724550898,
-   "violations": 0
-  },
-  {
-   "seed": 1001,
-   "net": 349857,
-   "unsoldRate": 0.3648891551827442,
-   "fulfil": 0.7376478775226165,
-   "violations": 0
-  },
-  {
-   "seed": 1002,
-   "net": 481358,
-   "unsoldRate": 0.1893491124260355,
-   "fulfil": 0.8016905071521456,
-   "violations": 0
-  },
-  {
-   "seed": 1003,
-   "net": 460275,
-   "unsoldRate": 0.35471204188481675,
-   "fulfil": 0.725,
-   "violations": 0
-  },
-  {
-   "seed": 1004,
-   "net": 340921,
-   "unsoldRate": 0.44683026584867075,
-   "fulfil": 0.7213333333333334,
-   "violations": 0
-  },
-  {
-   "seed": 1005,
-   "net": 361110,
-   "unsoldRate": 0.3464305478693968,
-   "fulfil": 0.6979905437352246,
-   "violations": 0
-  },
-  {
-   "seed": 1006,
-   "net": 476223,
-   "unsoldRate": 0.25883762732174953,
-   "fulfil": 0.8484224965706447,
-   "violations": 0
-  },
-  {
-   "seed": 1007,
-   "net": 460041,
-   "unsoldRate": 0.33496932515337424,
-   "fulfil": 0.7241148964595858,
-   "violations": 0
-  },
-  {
-   "seed": 1008,
-   "net": 403455,
-   "unsoldRate": 0.4344590726960504,
-   "fulfil": 0.6776406035665294,
-   "violations": 0
-  },
-  {
-   "seed": 1009,
-   "net": 561372,
-   "unsoldRate": 0.15109343936381708,
-   "fulfil": 0.8026315789473685,
-   "violations": 0
-  },
-  {
-   "seed": 1010,
-   "net": 364210,
-   "unsoldRate": 0.3363584798638684,
-   "fulfil": 0.8429394812680115,
-   "violations": 0
-  },
-  {
-   "seed": 1011,
-   "net": 447232,
-   "unsoldRate": 0.3794489092996556,
-   "fulfil": 0.7506944444444444,
-   "violations": 0
-  },
-  {
-   "seed": 1012,
-   "net": 312893,
-   "unsoldRate": 0.3467128027681661,
-   "fulfil": 0.6582984658298466,
-   "violations": 0
-  },
-  {
-   "seed": 1013,
-   "net": 405204,
-   "unsoldRate": 0.4261096605744125,
-   "fulfil": 0.6701219512195122,
-   "violations": 0
-  },
-  {
-   "seed": 1014,
-   "net": 325112,
-   "unsoldRate": 0.474854420328216,
-   "fulfil": 0.7100930565497494,
-   "violations": 0
-  },
-  {
-   "seed": 1015,
-   "net": 371269,
-   "unsoldRate": 0.4056545789797173,
-   "fulfil": 0.6655196145905025,
-   "violations": 0
-  },
-  {
-   "seed": 1016,
-   "net": 400079,
-   "unsoldRate": 0.3360655737704918,
-   "fulfil": 0.6923076923076923,
-   "violations": 0
-  },
-  {
-   "seed": 1017,
-   "net": 422175,
-   "unsoldRate": 0.37696629213483146,
-   "fulfil": 0.7001262626262627,
-   "violations": 0
-  },
-  {
-   "seed": 1018,
-   "net": 440195,
-   "unsoldRate": 0.34552580013063355,
-   "fulfil": 0.6729348556077904,
-   "violations": 0
-  },
-  {
-   "seed": 1019,
-   "net": 183440,
-   "unsoldRate": 0.5656284760845384,
-   "fulfil": 0.5763837638376383,
-   "violations": 0
-  },
-  {
-   "seed": 1020,
-   "net": 480140,
-   "unsoldRate": 0.3624503686897334,
-   "fulfil": 0.790436005625879,
-   "violations": 0
-  },
-  {
-   "seed": 1021,
-   "net": 284071,
-   "unsoldRate": 0.4430459408432977,
-   "fulfil": 0.668429003021148,
-   "violations": 0
-  },
-  {
-   "seed": 1022,
-   "net": 589565,
-   "unsoldRate": 0.293076522644456,
-   "fulfil": 0.9430555555555555,
-   "violations": 0
-  },
-  {
-   "seed": 1023,
-   "net": 299452,
-   "unsoldRate": 0.310801393728223,
-   "fulfil": 0.6393018745959922,
-   "violations": 0
-  },
-  {
-   "seed": 1024,
-   "net": 365949,
-   "unsoldRate": 0.3957845433255269,
-   "fulfil": 0.6745098039215687,
-   "violations": 0
-  },
-  {
-   "seed": 1025,
-   "net": 341363,
-   "unsoldRate": 0.4194088120468489,
-   "fulfil": 0.7977011494252874,
-   "violations": 0
-  },
-  {
-   "seed": 1026,
-   "net": 454667,
-   "unsoldRate": 0.380465644520159,
-   "fulfil": 0.6608116293155664,
-   "violations": 0
-  },
-  {
-   "seed": 1027,
-   "net": 277012,
-   "unsoldRate": 0.4619718309859155,
-   "fulfil": 0.6379425517702071,
-   "violations": 0
-  },
-  {
-   "seed": 1028,
-   "net": 345245,
-   "unsoldRate": 0.4189274447949527,
-   "fulfil": 0.7234878240377062,
-   "violations": 0
-  },
-  {
-   "seed": 1029,
-   "net": 459437,
-   "unsoldRate": 0.22481572481572482,
-   "fulfil": 0.8163001293661061,
-   "violations": 0
-  }
- ]
+  "S6_maxPlanMs": 31,
+  "totalMs": 30357
+ }
 }

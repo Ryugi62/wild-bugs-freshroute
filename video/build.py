@@ -54,13 +54,14 @@ def plan():
     return lines, sents, cues, mp3
 
 
-SW = EV["sweep"]; HL = EV["headline"]
+DS = EV["sets"]["default"]; BS = EV["sets"]["shelf-life-binding"]
+SW = DS["sweep"]; HL = EV["headline"]
 FACTS = [
     "Held-out data: 30 seeds, never used while building",
-    f"Rule breaks by the plan: {EV['S4_violations']['planSeedsWithViolations']} of 30 datasets",
-    f"Net vs strongest of 4 baselines: {SW[0]['upliftPct']:+.1f}% / {SW[1]['upliftPct']:+.1f}% / {SW[2]['upliftPct']:+.1f}%",
-    f"(elasticity 0.5 / 1.0 / 1.5), never worse in {round(HL['neverLoseRate']*30)} of 30",
-    f"Really spoiled 0 kg. Unsold stock {HL['planUnsoldRate']*100:.1f}% vs {HL['bestBaseUnsoldRate']*100:.1f}%",
+    f"Rule breaks by the plan: {sum(DS['violationSeedsByElasticity'])+sum(BS['violationSeedsByElasticity'])} dataset runs of 180",
+    f"Net vs best rule, default set: {SW[0]['upliftPct']:+.1f}% / {SW[1]['upliftPct']:+.1f}% / {SW[2]['upliftPct']:+.1f}%",
+    f"Shelf-life set: {BS['sweep'][0]['upliftPct']:+.1f}% / {BS['sweep'][1]['upliftPct']:+.1f}% / {BS['sweep'][2]['upliftPct']:+.1f}% (elasticity 0.5 / 1.0 / 1.5)",
+    f"Spoiled kg, plan vs naive FIFO: {DS['sweep'][0]['table']['FreshRoute plan']['trueSpoiledKg']:.0f} vs {DS['sweep'][0]['table']['FIFO to nearest market']['trueSpoiledKg']:.0f}; vs best rule: tie",
 ]
 END = ["FreshRoute", "Wild Bugs · PS 03", "Synthetic data. Assumptions and tests are public."]
 

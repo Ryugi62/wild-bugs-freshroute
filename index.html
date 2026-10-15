@@ -41,7 +41,8 @@
     <div id="kpis" class="kpis"></div>
     <section class="card"><h2>Ship in this order</h2><p class="hint">Most perishable first. Each line says why.</p><ol id="ships" class="list"></ol><details id="moreShips"><summary>Show all dispatches</summary><ol id="shipsAll" class="list"></ol></details></section>
     <section class="card"><h2>Discount only where it pays</h2><ul id="discs" class="list"></ul></section>
-    <section class="card"><h2>If things go wrong</h2><p class="hint">30 random bad days: produce ages up to 20% faster, trips up to half a day longer, demand −25% to +15%, prices ±10%. Both the plan and the strongest baseline are fixed in advance.</p><div id="stress" class="kpis"></div></section>
+    <section class="card"><h2>If things go wrong</h2><p class="hint">30 random bad days: produce ages up to 20% faster, trips up to half a day longer, demand −25% to +15%, prices ±10%. Both the plan and the strongest baseline are fixed in advance. Bad-day averages sit far below a normal day because a trip only 0.25 days late already pushes a shipment past a market's hard delivery window, and the whole shipment is lost; that is why the dataset average here is about one eighth of the normal-day net.</p><div id="stress" class="kpis"></div></section>
+    <section class="card" id="biz"><h2>What it is worth to one warehouse</h2><p class="hint">Synthetic numbers from the held-out evaluation, not a field result.</p><div id="bizBody"></div></section>
     <details class="card"><summary>Does the win depend on our elasticity assumption?</summary><div class="scroll"><table id="sweep"></table></div><p class="hint" id="sweepNote"></p></details>
     <details class="card"><summary>Full comparison with baselines</summary><div class="scroll"><table id="cmp"></table></div></details>
     <details class="card"><summary>Assumptions, cost model and limits</summary><div id="assump"></div></details>
