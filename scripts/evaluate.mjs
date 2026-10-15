@@ -21,7 +21,7 @@ function runSet(profile) {
   const stress = [0.5, 1.0, 1.5].map(e => {
     const R = seeds.slice(0, 10).map(sd => sensitivity(gen(profile, sd, e), { draws: 30, seed: sd }));
     const m = (f) => mean(R.map(f));
-    return { elasticity: e, draws: 300, wins: Math.round(m(r => r.fixedBeatsBaseline) * 300), planNet: m(r => r.fixed.netMean), baseNet: m(r => r.baseline.netMean), planP10: m(r => r.fixed.netP10), planP90: m(r => r.fixed.netP90), baseP10: m(r => r.baseline.netP10), baseP90: m(r => r.baseline.netP90), planSpoiledKg: m(r => r.fixed.spoiledKgMean), baseSpoiledKg: m(r => r.baseline.spoiledKgMean), planExpiredKg: m(r => r.fixed.expiredKgMean), baseExpiredKg: m(r => r.baseline.expiredKgMean), nominalPlanNet: m(r => r.fixed.netMean) };
+    return { elasticity: e, draws: 300, wins: Math.round(m(r => r.fixedWins / r.draws) * 300), ties: Math.round(m(r => r.fixedTies / r.draws) * 300), losses: Math.round(m(r => r.fixedLosses / r.draws) * 300), winsOrTies: Math.round(m(r => r.fixedBeatsBaseline) * 300), planNet: m(r => r.fixed.netMean), baseNet: m(r => r.baseline.netMean), planP10: m(r => r.fixed.netP10), planP90: m(r => r.fixed.netP90), baseP10: m(r => r.baseline.netP10), baseP90: m(r => r.baseline.netP90), planSpoiledKg: m(r => r.fixed.spoiledKgMean), baseSpoiledKg: m(r => r.baseline.spoiledKgMean), planExpiredKg: m(r => r.fixed.expiredKgMean), baseExpiredKg: m(r => r.baseline.expiredKgMean), nominalPlanNet: m(r => r.fixed.netMean) };
   });
   const delay = [0.5, 1.0, 1.5].map(e => {
     const names = ['FreshRoute plan', 'FreshRoute plan, +0.25 d buffer', 'FIFO to nearest market', 'FIFO to highest price', 'Urgent-first, best-margin dispatcher', 'Dispatcher + flat 30% surplus discount'];
@@ -51,18 +51,18 @@ const summary = { seeds: 30, headline: { rule: 'most conservative uplift over bo
 writeFileSync(new URL('../eval-results.json', import.meta.url), JSON.stringify({ summary }, null, 1));
 
 // ---- README tables
-const R0 = (x) => Math.round(x).toLocaleString('en-US'), P1 = (x) => (x * 100).toFixed(1) + '%', U1 = (x) => (x >= 0 ? '+' : '') + x.toFixed(1) + '%';
+const R0 = (x) => Math.round(x).toLocaleString('en-US'), P1 = (x) => (x * 100).toFixed(1) + '%', U1 = (x) => x === null ? 'n/a' : (x >= 0 ? '+' : '') + x.toFixed(1) + '%';
 let md = '';
 for (const [p, label] of SETS) {
   const S = sets[p];
-  md += `\n### ${label}\n\nNet revenue vs the strongest of four baselines (INR, mean over 30 held-out datasets):\n\n| Elasticity | Plan net | Plan, no discounts | Strongest baseline | Plan vs strongest | Never worse / strictly better | Violations (datasets) |\n|---|---|---|---|---|---|---|\n`;
-  S.sweep.forEach((l, i) => { md += `| ${l.elasticity} | ${R0(l.planNet)} | ${R0(l.planNoDiscNet)} | ${R0(l.bestBaseNet)} | ${U1(l.upliftPct)} | ${Math.round(l.neverLoseRate * 30)}/30 · ${Math.round(l.winRate * 30)}/30 | ${S.violationSeedsByElasticity[i]} |\n`; });
+  md += `\n### ${label}\n\nNet revenue vs the strongest of four baselines (INR, mean over 30 held-out datasets). *Strongest baseline* = on every dataset, the best of the four baselines on that dataset, then averaged; so it can sit above every single baseline's own mean (it does at elasticity 1.5, see the last row of that table). *Plan vs strongest* is a percentage of that mean, shown only while the baseline net is above 0 (otherwise only the INR difference is defined); the per-dataset column is always an INR difference, so "never worse" and a negative minimum cannot both appear:\n\n| Elasticity | Plan net | Plan, no discounts | Strongest baseline | Plan vs strongest | Plan minus strongest, per dataset: min to max (INR) | Never worse / strictly better | Violations (datasets) |\n|---|---|---|---|---|---|---|---|\n`;
+  S.sweep.forEach((l, i) => { md += `| ${l.elasticity} | ${R0(l.planNet)} | ${R0(l.planNoDiscNet)} | ${R0(l.bestBaseNet)} | ${l.upliftPct === null ? 'n/a (baseline net <= 0)' : U1(l.upliftPct)} | ${R0(l.seedMinDiffInr)} to ${R0(l.seedMaxDiffInr)} | ${Math.round(l.neverLoseRate * 30)}/30 · ${Math.round(l.winRate * 30)}/30 | ${S.violationSeedsByElasticity[i]} |\n`; });
   for (const l of S.sweep) {
     md += `\nElasticity ${l.elasticity}, every strategy on the same datasets:\n\n| Strategy | Net (INR) | Really spoiled kg (incl. expired at depot) | of which expired at depot kg | Stock unsold | Demand fulfilled | Unmet demand kg | Market fulfilment spread (max-min) |\n|---|---|---|---|---|---|---|---|\n`;
     for (const [n, v] of Object.entries(l.table)) md += `| ${n} | ${R0(v.net)} | ${R0(v.trueSpoiledKg)} | ${R0(v.expiredKg)} | ${P1(v.unsoldRate)} | ${P1(v.fulfillment)} | ${R0(v.unmetKg)} | ${P1(v.marketSpread)} |\n`;
   }
-  md += `\nStress test, 10 datasets x 30 bad days (shelf life up to -20%, trips up to +0.5 d, demand -25..+15%, prices +-10%); plan and strongest baseline computed once and kept fixed:\n\n| Elasticity | Plan beats baseline | Mean net plan vs baseline | P10-P90 net, plan | P10-P90 net, baseline | Really spoiled kg per bad day, plan vs baseline |\n|---|---|---|---|---|---|\n`;
-  for (const x of S.stress) md += `| ${x.elasticity} | ${x.wins} of 300 (${Math.round(x.wins / 3)}%) | ${R0(x.planNet)} vs ${R0(x.baseNet)} | ${R0(x.planP10)} to ${R0(x.planP90)} | ${R0(x.baseP10)} to ${R0(x.baseP90)} | ${R0(x.planSpoiledKg)} vs ${R0(x.baseSpoiledKg)} |\n`;
+  md += `\nStress test, 10 datasets x 30 bad days (shelf life up to -20%, trips up to +0.5 d, demand -25..+15%, prices +-10%); plan and strongest baseline computed once and kept fixed; a tie means a net difference under 0.000001 INR:\n\n| Elasticity | Plan wins / ties / losses (of 300 bad days) | Mean net plan vs baseline | P10-P90 net, plan | P10-P90 net, baseline | Really spoiled kg per bad day, plan vs baseline |\n|---|---|---|---|---|---|\n`;
+  for (const x of S.stress) md += `| ${x.elasticity} | ${x.wins} / ${x.ties} / ${x.losses} | ${R0(x.planNet)} vs ${R0(x.baseNet)} | ${R0(x.planP10)} to ${R0(x.planP90)} | ${R0(x.baseP10)} to ${R0(x.baseP90)} | ${R0(x.planSpoiledKg)} vs ${R0(x.baseSpoiledKg)} |\n`;
   md += `\nTrip-delay run (plans made on the nominal day, then each market's trips run 0.3-1.0 d late with probability 1/3; 300 runs per row, plans fixed):\n\n| Elasticity | Strategy | Mean net (INR) | Really spoiled kg | of which expired at depot | Demand fulfilled |\n|---|---|---|---|---|---|\n`;
   for (const d of S.delayRuns) for (const r of d.rows) md += `| ${d.elasticity} | ${r.name} | ${R0(r.net)} | ${R0(r.spoiledKg)} | ${R0(r.expiredKg)} | ${P1(r.fulfillment)} |\n`;
 }

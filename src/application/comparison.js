@@ -2,7 +2,13 @@ import { evaluate } from '../domain/simulator.js';
 import { plan } from './planner.js';
 import { strongestBaseline, baselineSmartDiscount } from './baselines.js';
 
+const minNonNull = (xs) => { const v = xs.filter(x => x !== null); return v.length ? Math.min(...v) : null; };
+const maxNonNull = (xs) => { const v = xs.filter(x => x !== null); return v.length ? Math.max(...v) : null; };
 const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
+
+/** Uplift definition (SPEC S2): percent only when the baseline net is > 0, otherwise null; the absolute INR difference is always defined. */
+export const upliftPctOrNull = (planNet, baseNet) => (baseNet > 0 ? (planNet / baseNet - 1) * 100 : null);
+export const upliftAbs = (planNet, baseNet) => planNet - baseNet;
 
 /** One shared cost model, one row per price-elasticity assumption. The headline is the most conservative uplift over the sweep. */
 export function sweepScenario(s, levels = [0.5, 1.0, 1.5]) {
@@ -22,18 +28,22 @@ export function elasticitySweep(scenarios, levels = [0.5, 1.0, 1.5]) {
     const strat = (get) => ({ net: mean(R.map(r => get(r).net)), unsoldRate: mean(R.map(r => get(r).unsoldRate)), trueSpoiledKg: mean(R.map(r => get(r).trueSpoiledKg)), strandedKg: mean(R.map(r => get(r).strandedKg)), expiredKg: mean(R.map(r => get(r).expiredKg)), unmetKg: mean(R.map(r => get(r).unmetKg)), marketSpread: mean(R.map(r => get(r).marketFulfilSpread)), fulfillment: mean(R.map(r => get(r).fulfillment)) });
     const table = { 'FreshRoute plan': strat(r => r.plan), 'FreshRoute, no discounts': strat(r => r.planNoDisc) };
     R[0].all.forEach((a, k) => { table[a.name] = strat(r => r.all[k].m); });
+    table['Strongest baseline, chosen per dataset'] = strat(r => r.best.m);
     return {
       table, elasticity: e, planNet: pn, planNoDiscNet: nd, bestBaseNet: bn, smartDiscNet: mean(R.map(r => r.smartDisc.net)),
-      upliftPct: (pn / bn - 1) * 100, upliftNoDiscPct: (nd / bn - 1) * 100,
+      upliftPct: upliftPctOrNull(pn, bn), upliftNoDiscPct: upliftPctOrNull(nd, bn), upliftAbsInr: pn - bn,
       winRate: R.filter(r => r.plan.net > r.best.m.net + 1e-6).length / R.length,
       neverLoseRate: R.filter(r => r.plan.net >= r.best.m.net - 1e-6).length / R.length,
       planUnsoldRate: mean(R.map(r => r.plan.unsoldRate)), bestBaseUnsoldRate: mean(R.map(r => r.best.m.unsoldRate)),
       planTrueSpoiledKg: mean(R.map(r => r.plan.trueSpoiledKg)), bestBaseTrueSpoiledKg: mean(R.map(r => r.best.m.trueSpoiledKg)),
       planCarryKg: mean(R.map(r => r.plan.carryKg)), bestBaseCarryKg: mean(R.map(r => r.best.m.carryKg)),
       planViolationSeeds: R.filter(r => r.plan.violations.length > 0).length,
-      seedMinUpliftPct: Math.min(...R.map(r => (r.plan.net / r.best.m.net - 1) * 100)), seedMaxUpliftPct: Math.max(...R.map(r => (r.plan.net / r.best.m.net - 1) * 100)),
+      seedMinUpliftPct: minNonNull(R.map(r => upliftPctOrNull(r.plan.net, r.best.m.net))), seedMaxUpliftPct: maxNonNull(R.map(r => upliftPctOrNull(r.plan.net, r.best.m.net))),
+      seedMinDiffInr: Math.min(...R.map(r => upliftAbs(r.plan.net, r.best.m.net))), seedMaxDiffInr: Math.max(...R.map(r => upliftAbs(r.plan.net, r.best.m.net))),
+      seedsWithNonPositiveBaseline: R.filter(r => !(r.best.m.net > 0)).length,
+      meanPerSeedBestNet: bn,
       discountCellsMean: mean(R.map(r => r.discounts)), n: R.length,
     };
   });
-  return { levels: out, conservative: out.reduce((a, b) => (b.upliftPct < a.upliftPct ? b : a)) };
+  return { levels: out, conservative: out.reduce((a, b) => ((b.upliftPct ?? -Infinity) < (a.upliftPct ?? -Infinity) ? b : a)) };
 }

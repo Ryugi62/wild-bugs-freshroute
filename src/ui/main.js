@@ -3,7 +3,7 @@ import { parseScenario } from '../adapters/validate.js';
 import { evaluate } from '../domain/simulator.js';
 import { plan } from '../application/planner.js';
 import { strongestBaseline } from '../application/baselines.js';
-import { sweepScenario } from '../application/comparison.js';
+import { sweepScenario, upliftPctOrNull } from '../application/comparison.js';
 import { perturb, sensitivity } from '../application/sensitivity.js';
 
 const $ = (id) => document.getElementById(id);
@@ -62,13 +62,14 @@ function renderSweep(rows, s) {
      ['Really spoiled kg: plan / strongest', (r) => `${Math.round(r.plan.trueSpoiledKg)} / ${Math.round(r.best.m.trueSpoiledKg)}`],
      ['Stock unsold: plan / strongest', (r) => `${pct(r.plan.unsoldRate)} / ${pct(r.best.m.unsoldRate)}`]]
       .map(([n, g]) => `<tr><td>${n}</td>${rows.map(r => `<td>${g(r)}</td>`).join('')}</tr>`).join('');
-  const lo = Math.min(...rows.map(r => (r.plan.net / r.best.m.net - 1) * 100));
-  $('sweepNote').textContent = `Most conservative gap on this dataset: ${lo >= 0 ? '+' : ''}${lo.toFixed(1)}%. Food price elasticity in the literature is about 0.3 to 0.8, so 1.5 is the optimistic column.`;
+  const pcts = rows.map(r => upliftPctOrNull(r.plan.net, r.best.m.net)).filter(x => x !== null);
+  const lo = pcts.length ? Math.min(...pcts) : null, absLo = Math.min(...rows.map(r => r.plan.net - r.best.m.net));
+  $('sweepNote').textContent = `Most conservative gap on this dataset: ${lo === null ? 'baseline net is not above 0, so only the difference is defined: ' + inr(absLo) : (lo >= 0 ? '+' : '') + lo.toFixed(1) + '%'}. Food price elasticity in the literature is about 0.3 to 0.8, so 1.5 is the optimistic column.`;
 }
 function renderStress(r) {
   const c = (t, v, sub) => `<div class="kpi"><div class="big">${v}</div><div class="name">${t}</div><span class="verdict v-ok">${sub}</span></div>`;
   $('stress').innerHTML =
-    c('Plan kept as is beats the strongest baseline kept as is', Math.round(r.fixedBeatsBaseline * 100) + '%', `${r.draws} bad days · ${r.baselineName}`) +
+    c('Bad days: plan wins / ties / loses vs the strongest baseline, both kept as is', `${r.fixedWins} / ${r.fixedTies} / ${r.fixedLosses}`, `${r.draws} bad days · ${r.baselineName}`) +
     c('Average net, plan kept as is', inr(r.fixed.netMean), `baseline ${inr(r.baseline.netMean)}`) +
     c('Net range P10 to P90, plan kept as is', `${inr(r.fixed.netP10)} to ${inr(r.fixed.netP90)}`, `baseline ${inr(r.baseline.netP10)} to ${inr(r.baseline.netP90)}`) +
     c('Really spoiled kg per bad day, plan kept as is', Math.round(r.fixed.spoiledKgMean) + ' kg', `baseline ${Math.round(r.baseline.spoiledKgMean)} kg`) +

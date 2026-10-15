@@ -61,13 +61,13 @@ The validator has no demand check on purpose: demand is a sales cap, not a hard 
 <!-- EVAL:START -->
 ### Default set
 
-Net revenue vs the strongest of four baselines (INR, mean over 30 held-out datasets):
+Net revenue vs the strongest of four baselines (INR, mean over 30 held-out datasets). *Strongest baseline* = on every dataset, the best of the four baselines on that dataset, then averaged; so it can sit above every single baseline's own mean (it does at elasticity 1.5, see the last row of that table). *Plan vs strongest* is a percentage of that mean, shown only while the baseline net is above 0 (otherwise only the INR difference is defined); the per-dataset column is always an INR difference, so "never worse" and a negative minimum cannot both appear:
 
-| Elasticity | Plan net | Plan, no discounts | Strongest baseline | Plan vs strongest | Never worse / strictly better | Violations (datasets) |
-|---|---|---|---|---|---|---|
-| 0.5 | 404,755 | 404,755 | 401,552 | +0.8% | 30/30 · 17/30 | 0 |
-| 1 | 405,894 | 404,755 | 401,552 | +1.1% | 30/30 · 30/30 | 0 |
-| 1.5 | 424,312 | 404,755 | 407,561 | +4.1% | 30/30 · 30/30 | 0 |
+| Elasticity | Plan net | Plan, no discounts | Strongest baseline | Plan vs strongest | Plan minus strongest, per dataset: min to max (INR) | Never worse / strictly better | Violations (datasets) |
+|---|---|---|---|---|---|---|---|
+| 0.5 | 404,755 | 404,755 | 401,552 | +0.8% | 0 to 18,411 | 30/30 · 17/30 | 0 |
+| 1 | 405,894 | 404,755 | 401,552 | +1.1% | 345 to 19,083 | 30/30 · 30/30 | 0 |
+| 1.5 | 424,312 | 404,755 | 407,561 | +4.1% | 1,950 to 29,661 | 30/30 · 30/30 | 0 |
 
 Elasticity 0.5, every strategy on the same datasets:
 
@@ -79,6 +79,7 @@ Elasticity 0.5, every strategy on the same datasets:
 | FIFO to highest price | -107,427 | 11,028 | 6 | 71.2% | 33.2% | 9,880 | 56.3% |
 | Urgent-first, best-margin dispatcher | 401,552 | 18 | 18 | 37.0% | 72.9% | 4,019 | 83.1% |
 | Dispatcher + flat 30% surplus discount | 350,217 | 14 | 14 | 32.7% | 72.9% | 4,019 | 83.1% |
+| Strongest baseline, chosen per dataset | 401,552 | 18 | 18 | 37.0% | 72.9% | 4,019 | 83.1% |
 
 Elasticity 1, every strategy on the same datasets:
 
@@ -90,6 +91,7 @@ Elasticity 1, every strategy on the same datasets:
 | FIFO to highest price | -107,427 | 11,028 | 6 | 71.2% | 33.2% | 9,880 | 56.3% |
 | Urgent-first, best-margin dispatcher | 401,552 | 18 | 18 | 37.0% | 72.9% | 4,019 | 83.1% |
 | Dispatcher + flat 30% surplus discount | 381,152 | 11 | 11 | 29.5% | 72.9% | 4,019 | 83.1% |
+| Strongest baseline, chosen per dataset | 401,552 | 18 | 18 | 37.0% | 72.9% | 4,019 | 83.1% |
 
 Elasticity 1.5, every strategy on the same datasets:
 
@@ -101,14 +103,15 @@ Elasticity 1.5, every strategy on the same datasets:
 | FIFO to highest price | -107,427 | 11,028 | 6 | 71.2% | 33.2% | 9,880 | 56.3% |
 | Urgent-first, best-margin dispatcher | 401,552 | 18 | 18 | 37.0% | 72.9% | 4,019 | 83.1% |
 | Dispatcher + flat 30% surplus discount | 402,911 | 8 | 8 | 27.1% | 72.9% | 4,019 | 83.1% |
+| Strongest baseline, chosen per dataset | 407,561 | 8 | 8 | 29.8% | 72.9% | 4,019 | 83.1% |
 
-Stress test, 10 datasets x 30 bad days (shelf life up to -20%, trips up to +0.5 d, demand -25..+15%, prices +-10%); plan and strongest baseline computed once and kept fixed:
+Stress test, 10 datasets x 30 bad days (shelf life up to -20%, trips up to +0.5 d, demand -25..+15%, prices +-10%); plan and strongest baseline computed once and kept fixed; a tie means a net difference under 0.000001 INR:
 
-| Elasticity | Plan beats baseline | Mean net plan vs baseline | P10-P90 net, plan | P10-P90 net, baseline | Really spoiled kg per bad day, plan vs baseline |
+| Elasticity | Plan wins / ties / losses (of 300 bad days) | Mean net plan vs baseline | P10-P90 net, plan | P10-P90 net, baseline | Really spoiled kg per bad day, plan vs baseline |
 |---|---|---|---|---|---|
-| 0.5 | 223 of 300 (74%) | 54,419 vs 53,782 | -242,781 to 325,673 | -243,138 to 323,955 | 5,371 vs 5,319 |
-| 1 | 124 of 300 (41%) | 51,261 vs 53,782 | -246,778 to 324,810 | -243,138 to 323,955 | 5,491 vs 5,319 |
-| 1.5 | 225 of 300 (75%) | 60,777 vs 51,564 | -256,585 to 351,412 | -259,835 to 335,529 | 5,950 vs 5,821 |
+| 0.5 | 103 / 120 / 77 | 54,419 vs 53,782 | -242,781 to 325,673 | -243,138 to 323,955 | 5,371 vs 5,319 |
+| 1 | 124 / 0 / 176 | 51,261 vs 53,782 | -246,778 to 324,810 | -243,138 to 323,955 | 5,491 vs 5,319 |
+| 1.5 | 225 / 0 / 75 | 60,777 vs 51,564 | -256,585 to 351,412 | -259,835 to 335,529 | 5,950 vs 5,821 |
 
 Trip-delay run (plans made on the nominal day, then each market's trips run 0.3-1.0 d late with probability 1/3; 300 runs per row, plans fixed):
 
@@ -135,13 +138,13 @@ Trip-delay run (plans made on the nominal day, then each market's trips run 0.3-
 
 ### Shelf-life-binding set
 
-Net revenue vs the strongest of four baselines (INR, mean over 30 held-out datasets):
+Net revenue vs the strongest of four baselines (INR, mean over 30 held-out datasets). *Strongest baseline* = on every dataset, the best of the four baselines on that dataset, then averaged; so it can sit above every single baseline's own mean (it does at elasticity 1.5, see the last row of that table). *Plan vs strongest* is a percentage of that mean, shown only while the baseline net is above 0 (otherwise only the INR difference is defined); the per-dataset column is always an INR difference, so "never worse" and a negative minimum cannot both appear:
 
-| Elasticity | Plan net | Plan, no discounts | Strongest baseline | Plan vs strongest | Never worse / strictly better | Violations (datasets) |
-|---|---|---|---|---|---|---|
-| 0.5 | 26,772 | 26,772 | 26,772 | +0.0% | 30/30 · 0/30 | 0 |
-| 1 | 27,537 | 26,772 | 26,772 | +2.9% | 30/30 · 30/30 | 0 |
-| 1.5 | 40,966 | 26,772 | 37,719 | +8.6% | 30/30 · 30/30 | 0 |
+| Elasticity | Plan net | Plan, no discounts | Strongest baseline | Plan vs strongest | Plan minus strongest, per dataset: min to max (INR) | Never worse / strictly better | Violations (datasets) |
+|---|---|---|---|---|---|---|---|
+| 0.5 | 26,772 | 26,772 | 26,772 | +0.0% | 0 to 0 | 30/30 · 0/30 | 0 |
+| 1 | 27,537 | 26,772 | 26,772 | +2.9% | 169 to 1,526 | 30/30 · 30/30 | 0 |
+| 1.5 | 40,966 | 26,772 | 37,719 | +8.6% | 519 to 11,266 | 30/30 · 30/30 | 0 |
 
 Elasticity 0.5, every strategy on the same datasets:
 
@@ -153,6 +156,7 @@ Elasticity 0.5, every strategy on the same datasets:
 | FIFO to highest price | -338,055 | 14,237 | 69 | 89.1% | 22.7% | 6,336 | 56.4% |
 | Urgent-first, best-margin dispatcher | 26,772 | 1,223 | 1,223 | 74.4% | 53.2% | 3,850 | 98.6% |
 | Dispatcher + flat 30% surplus discount | -8,634 | 1,211 | 1,211 | 70.9% | 53.2% | 3,850 | 98.6% |
+| Strongest baseline, chosen per dataset | 26,772 | 1,223 | 1,223 | 74.4% | 53.2% | 3,850 | 98.6% |
 
 Elasticity 1, every strategy on the same datasets:
 
@@ -164,6 +168,7 @@ Elasticity 1, every strategy on the same datasets:
 | FIFO to highest price | -338,055 | 14,237 | 69 | 89.1% | 22.7% | 6,336 | 56.4% |
 | Urgent-first, best-margin dispatcher | 26,772 | 1,223 | 1,223 | 74.4% | 53.2% | 3,850 | 98.6% |
 | Dispatcher + flat 30% surplus discount | 15,111 | 1,200 | 1,200 | 67.4% | 53.2% | 3,850 | 98.6% |
+| Strongest baseline, chosen per dataset | 26,772 | 1,223 | 1,223 | 74.4% | 53.2% | 3,850 | 98.6% |
 
 Elasticity 1.5, every strategy on the same datasets:
 
@@ -175,14 +180,15 @@ Elasticity 1.5, every strategy on the same datasets:
 | FIFO to highest price | -338,055 | 14,237 | 69 | 89.1% | 22.7% | 6,336 | 56.4% |
 | Urgent-first, best-margin dispatcher | 26,772 | 1,223 | 1,223 | 74.4% | 53.2% | 3,850 | 98.6% |
 | Dispatcher + flat 30% surplus discount | 37,719 | 1,188 | 1,188 | 64.2% | 53.2% | 3,850 | 98.6% |
+| Strongest baseline, chosen per dataset | 37,719 | 1,188 | 1,188 | 64.2% | 53.2% | 3,850 | 98.6% |
 
-Stress test, 10 datasets x 30 bad days (shelf life up to -20%, trips up to +0.5 d, demand -25..+15%, prices +-10%); plan and strongest baseline computed once and kept fixed:
+Stress test, 10 datasets x 30 bad days (shelf life up to -20%, trips up to +0.5 d, demand -25..+15%, prices +-10%); plan and strongest baseline computed once and kept fixed; a tie means a net difference under 0.000001 INR:
 
-| Elasticity | Plan beats baseline | Mean net plan vs baseline | P10-P90 net, plan | P10-P90 net, baseline | Really spoiled kg per bad day, plan vs baseline |
+| Elasticity | Plan wins / ties / losses (of 300 bad days) | Mean net plan vs baseline | P10-P90 net, plan | P10-P90 net, baseline | Really spoiled kg per bad day, plan vs baseline |
 |---|---|---|---|---|---|
-| 0.5 | 300 of 300 (100%) | -161,269 vs -161,269 | -237,482 to -49,574 | -237,482 to -49,574 | 5,041 vs 5,041 |
-| 1 | 79 of 300 (26%) | -162,743 vs -161,269 | -239,305 to -49,915 | -237,482 to -49,574 | 5,126 vs 5,041 |
-| 1.5 | 254 of 300 (85%) | -162,494 vs -166,294 | -249,831 to -37,944 | -254,674 to -40,488 | 5,582 vs 5,839 |
+| 0.5 | 0 / 300 / 0 | -161,269 vs -161,269 | -237,482 to -49,574 | -237,482 to -49,574 | 5,041 vs 5,041 |
+| 1 | 79 / 0 / 221 | -162,743 vs -161,269 | -239,305 to -49,915 | -237,482 to -49,574 | 5,126 vs 5,041 |
+| 1.5 | 254 / 0 / 46 | -162,494 vs -166,294 | -249,831 to -37,944 | -254,674 to -40,488 | 5,582 vs 5,839 |
 
 Trip-delay run (plans made on the nominal day, then each market's trips run 0.3-1.0 d late with probability 1/3; 300 runs per row, plans fixed):
 

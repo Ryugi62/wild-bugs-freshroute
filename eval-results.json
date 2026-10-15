@@ -70,6 +70,16 @@
        "unmetKg": 4018.6666666666665,
        "marketSpread": 0.8311863983085207,
        "fulfillment": 0.7289254143505315
+      },
+      "Strongest baseline, chosen per dataset": {
+       "net": 401551.73333333334,
+       "unsoldRate": 0.3700482152966849,
+       "trueSpoiledKg": 17.666666666666668,
+       "strandedKg": 0,
+       "expiredKg": 17.666666666666668,
+       "unmetKg": 4018.6666666666665,
+       "marketSpread": 0.8311863983085207,
+       "fulfillment": 0.7289254143505315
       }
      },
      "elasticity": 0.5,
@@ -79,6 +89,7 @@
      "smartDiscNet": 350216.90566666663,
      "upliftPct": 0.7976805313254731,
      "upliftNoDiscPct": 0.7976805313254731,
+     "upliftAbsInr": 3203.0999999999767,
      "winRate": 0.5666666666666667,
      "neverLoseRate": 1,
      "planUnsoldRate": 0.36399222638522666,
@@ -90,6 +101,10 @@
      "planViolationSeeds": 0,
      "seedMinUpliftPct": 0,
      "seedMaxUpliftPct": 4.816755402553197,
+     "seedMinDiffInr": 0,
+     "seedMaxDiffInr": 18411,
+     "seedsWithNonPositiveBaseline": 0,
+     "meanPerSeedBestNet": 401551.73333333334,
      "discountCellsMean": 0,
      "n": 30
     },
@@ -155,6 +170,16 @@
         "unmetKg": 4018.6666666666665,
         "marketSpread": 0.8311863983085207,
         "fulfillment": 0.7289254143505315
+       },
+       "Strongest baseline, chosen per dataset": {
+        "net": 401551.73333333334,
+        "unsoldRate": 0.3700482152966849,
+        "trueSpoiledKg": 17.666666666666668,
+        "strandedKg": 0,
+        "expiredKg": 17.666666666666668,
+        "unmetKg": 4018.6666666666665,
+        "marketSpread": 0.8311863983085207,
+        "fulfillment": 0.7289254143505315
        }
       },
       "elasticity": 0.5,
@@ -164,6 +189,7 @@
       "smartDiscNet": 350216.90566666663,
       "upliftPct": 0.7976805313254731,
       "upliftNoDiscPct": 0.7976805313254731,
+      "upliftAbsInr": 3203.0999999999767,
       "winRate": 0.5666666666666667,
       "neverLoseRate": 1,
       "planUnsoldRate": 0.36399222638522666,
@@ -175,6 +201,10 @@
       "planViolationSeeds": 0,
       "seedMinUpliftPct": 0,
       "seedMaxUpliftPct": 4.816755402553197,
+      "seedMinDiffInr": 0,
+      "seedMaxDiffInr": 18411,
+      "seedsWithNonPositiveBaseline": 0,
+      "meanPerSeedBestNet": 401551.73333333334,
       "discountCellsMean": 0,
       "n": 30
      },
@@ -239,6 +269,16 @@
         "unmetKg": 4018.6666666666665,
         "marketSpread": 0.8311863983085207,
         "fulfillment": 0.7289254143505315
+       },
+       "Strongest baseline, chosen per dataset": {
+        "net": 401551.73333333334,
+        "unsoldRate": 0.3700482152966849,
+        "trueSpoiledKg": 17.666666666666668,
+        "strandedKg": 0,
+        "expiredKg": 17.666666666666668,
+        "unmetKg": 4018.6666666666665,
+        "marketSpread": 0.8311863983085207,
+        "fulfillment": 0.7289254143505315
        }
       },
       "elasticity": 1,
@@ -248,6 +288,7 @@
       "smartDiscNet": 381151.97233333334,
       "upliftPct": 1.0813779743780394,
       "upliftNoDiscPct": 0.7976805313254731,
+      "upliftAbsInr": 4342.291999999899,
       "winRate": 1,
       "neverLoseRate": 1,
       "planUnsoldRate": 0.34770115379819894,
@@ -259,6 +300,10 @@
       "planViolationSeeds": 0,
       "seedMinUpliftPct": 0.1136521684678371,
       "seedMaxUpliftPct": 4.826762414508767,
+      "seedMinDiffInr": 344.8400000000256,
+      "seedMaxDiffInr": 19083.119999999937,
+      "seedsWithNonPositiveBaseline": 0,
+      "meanPerSeedBestNet": 401551.73333333334,
       "discountCellsMean": 6.333333333333333,
       "n": 30
      },
@@ -323,6 +368,16 @@
         "unmetKg": 4018.6666666666665,
         "marketSpread": 0.8311863983085207,
         "fulfillment": 0.7289254143505315
+       },
+       "Strongest baseline, chosen per dataset": {
+        "net": 407561.33466666663,
+        "unsoldRate": 0.29779847123671,
+        "trueSpoiledKg": 7.933333333333334,
+        "strandedKg": 0,
+        "expiredKg": 7.933333333333334,
+        "unmetKg": 4018.6666666666665,
+        "marketSpread": 0.8311863983085207,
+        "fulfillment": 0.7289254143505315
        }
       },
       "elasticity": 1.5,
@@ -332,6 +387,7 @@
       "smartDiscNet": 402910.89733333327,
       "upliftPct": 4.109993410856805,
       "upliftNoDiscPct": -0.6886083380869934,
+      "upliftAbsInr": 16750.744000000064,
       "winRate": 1,
       "neverLoseRate": 1,
       "planUnsoldRate": 0.28275428981924844,
@@ -343,6 +399,10 @@
       "planViolationSeeds": 0,
       "seedMinUpliftPct": 0.44162227685700106,
       "seedMaxUpliftPct": 8.794802118171674,
+      "seedMinDiffInr": 1950.2000000000116,
+      "seedMaxDiffInr": 29661.079999999958,
+      "seedsWithNonPositiveBaseline": 0,
+      "meanPerSeedBestNet": 407561.33466666663,
       "discountCellsMean": 12.433333333333334,
       "n": 30
      }
@@ -356,7 +416,10 @@
      {
       "elasticity": 0.5,
       "draws": 300,
-      "wins": 223,
+      "wins": 103,
+      "ties": 120,
+      "losses": 77,
+      "winsOrTies": 223,
       "planNet": 54419.24700000001,
       "baseNet": 53782.442,
       "planP10": -242781.05,
@@ -373,6 +436,9 @@
       "elasticity": 1,
       "draws": 300,
       "wins": 124,
+      "ties": 0,
+      "losses": 176,
+      "winsOrTies": 124,
       "planNet": 51260.85085333335,
       "baseNet": 53782.442,
       "planP10": -246778.03050000002,
@@ -389,6 +455,9 @@
       "elasticity": 1.5,
       "draws": 300,
       "wins": 225,
+      "ties": 0,
+      "losses": 75,
+      "winsOrTies": 225,
       "planNet": 60777.12699333334,
       "baseNet": 51564.041523333326,
       "planP10": -256585.44575,
@@ -614,6 +683,16 @@
        "unmetKg": 3850,
        "marketSpread": 0.9862569045068238,
        "fulfillment": 0.5319131540453211
+      },
+      "Strongest baseline, chosen per dataset": {
+       "net": 26771.8,
+       "unsoldRate": 0.7441129963784415,
+       "trueSpoiledKg": 1223,
+       "strandedKg": 1200,
+       "expiredKg": 1223,
+       "unmetKg": 3850,
+       "marketSpread": 0.9862569045068238,
+       "fulfillment": 0.5319131540453211
       }
      },
      "elasticity": 0.5,
@@ -623,6 +702,7 @@
      "smartDiscNet": -8634.08266666666,
      "upliftPct": 0,
      "upliftNoDiscPct": 0,
+     "upliftAbsInr": 0,
      "winRate": 0,
      "neverLoseRate": 1,
      "planUnsoldRate": 0.7441129963784415,
@@ -634,6 +714,10 @@
      "planViolationSeeds": 0,
      "seedMinUpliftPct": 0,
      "seedMaxUpliftPct": 0,
+     "seedMinDiffInr": 0,
+     "seedMaxDiffInr": 0,
+     "seedsWithNonPositiveBaseline": 9,
+     "meanPerSeedBestNet": 26771.8,
      "discountCellsMean": 0,
      "n": 30
     },
@@ -699,6 +783,16 @@
         "unmetKg": 3850,
         "marketSpread": 0.9862569045068238,
         "fulfillment": 0.5319131540453211
+       },
+       "Strongest baseline, chosen per dataset": {
+        "net": 26771.8,
+        "unsoldRate": 0.7441129963784415,
+        "trueSpoiledKg": 1223,
+        "strandedKg": 1200,
+        "expiredKg": 1223,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
        }
       },
       "elasticity": 0.5,
@@ -708,6 +802,7 @@
       "smartDiscNet": -8634.08266666666,
       "upliftPct": 0,
       "upliftNoDiscPct": 0,
+      "upliftAbsInr": 0,
       "winRate": 0,
       "neverLoseRate": 1,
       "planUnsoldRate": 0.7441129963784415,
@@ -719,6 +814,10 @@
       "planViolationSeeds": 0,
       "seedMinUpliftPct": 0,
       "seedMaxUpliftPct": 0,
+      "seedMinDiffInr": 0,
+      "seedMaxDiffInr": 0,
+      "seedsWithNonPositiveBaseline": 9,
+      "meanPerSeedBestNet": 26771.8,
       "discountCellsMean": 0,
       "n": 30
      },
@@ -783,6 +882,16 @@
         "unmetKg": 3850,
         "marketSpread": 0.9862569045068238,
         "fulfillment": 0.5319131540453211
+       },
+       "Strongest baseline, chosen per dataset": {
+        "net": 26771.8,
+        "unsoldRate": 0.7441129963784415,
+        "trueSpoiledKg": 1223,
+        "strandedKg": 1200,
+        "expiredKg": 1223,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
        }
       },
       "elasticity": 1,
@@ -792,6 +901,7 @@
       "smartDiscNet": 15110.834999999988,
       "upliftPct": 2.8582637949882583,
       "upliftNoDiscPct": 0,
+      "upliftAbsInr": 765.2086666666655,
       "winRate": 1,
       "neverLoseRate": 1,
       "planUnsoldRate": 0.732590647474505,
@@ -801,8 +911,12 @@
       "planCarryKg": 11314.5,
       "bestBaseCarryKg": 11496.333333333334,
       "planViolationSeeds": 0,
-      "seedMinUpliftPct": -6.293816084588233,
+      "seedMinUpliftPct": 0.1516009442609878,
       "seedMaxUpliftPct": 40.626262626262324,
+      "seedMinDiffInr": 168.85999999998603,
+      "seedMaxDiffInr": 1526.3300000000309,
+      "seedsWithNonPositiveBaseline": 9,
+      "meanPerSeedBestNet": 26771.8,
       "discountCellsMean": 7.2,
       "n": 30
      },
@@ -867,6 +981,16 @@
         "unmetKg": 3850,
         "marketSpread": 0.9862569045068238,
         "fulfillment": 0.5319131540453211
+       },
+       "Strongest baseline, chosen per dataset": {
+        "net": 37718.63699999999,
+        "unsoldRate": 0.6418582287425123,
+        "trueSpoiledKg": 1188.2666666666667,
+        "strandedKg": 1200,
+        "expiredKg": 1188.2666666666667,
+        "unmetKg": 3850,
+        "marketSpread": 0.9862569045068238,
+        "fulfillment": 0.5319131540453211
        }
       },
       "elasticity": 1.5,
@@ -876,6 +1000,7 @@
       "smartDiscNet": 37718.63699999999,
       "upliftPct": 8.609600606724,
       "upliftNoDiscPct": -29.022355712376335,
+      "upliftAbsInr": 3247.424000000021,
       "winRate": 1,
       "neverLoseRate": 1,
       "planUnsoldRate": 0.6724616468189967,
@@ -885,8 +1010,12 @@
       "planCarryKg": 10316.766666666666,
       "bestBaseCarryKg": 9797.6,
       "planViolationSeeds": 0,
-      "seedMinUpliftPct": -35.52300021240665,
+      "seedMinUpliftPct": 1.3748234948019578,
       "seedMaxUpliftPct": 92.85902977906011,
+      "seedMinDiffInr": 519.1600000000326,
+      "seedMaxDiffInr": 11266.410000000033,
+      "seedsWithNonPositiveBaseline": 8,
+      "meanPerSeedBestNet": 37718.63699999999,
       "discountCellsMean": 14.033333333333333,
       "n": 30
      }
@@ -900,7 +1029,10 @@
      {
       "elasticity": 0.5,
       "draws": 300,
-      "wins": 300,
+      "wins": 0,
+      "ties": 300,
+      "losses": 0,
+      "winsOrTies": 300,
       "planNet": -161269.28666666668,
       "baseNet": -161269.28666666668,
       "planP10": -237481.88999999998,
@@ -917,6 +1049,9 @@
       "elasticity": 1,
       "draws": 300,
       "wins": 79,
+      "ties": 0,
+      "losses": 221,
+      "winsOrTies": 79,
       "planNet": -162743.12300999998,
       "baseNet": -161269.28666666668,
       "planP10": -239305.40930000003,
@@ -933,6 +1068,9 @@
       "elasticity": 1.5,
       "draws": 300,
       "wins": 254,
+      "ties": 0,
+      "losses": 46,
+      "winsOrTies": 254,
       "planNet": -162493.96202,
       "baseNet": -166294.17711,
       "planP10": -249830.89664999995,
@@ -1123,6 +1261,6 @@
    }
   },
   "S6_maxPlanMs": 31,
-  "totalMs": 30357
+  "totalMs": 30172
  }
 }

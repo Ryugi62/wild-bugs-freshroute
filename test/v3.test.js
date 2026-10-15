@@ -46,7 +46,7 @@ test('S8 in the binding set the naive baselines really spoil and the plan does n
 test('S8 sweep table carries spoiled kg, unsold rate and fulfilment for every strategy', () => {
   const r = elasticitySweep(seeds.slice(0, 3).map(bind));
   for (const l of r.levels) {
-    assert.equal(Object.keys(l.table).length, 6);
+    assert.equal(Object.keys(l.table).length, 7);
     for (const v of Object.values(l.table)) for (const k of ['net', 'unsoldRate', 'trueSpoiledKg', 'strandedKg', 'fulfillment']) assert.ok(Number.isFinite(v[k]), k);
     assert.ok(l.table['Dispatcher + flat 30% surplus discount'].fulfillment > 0);
   }
@@ -84,4 +84,31 @@ test('S11 per-market fulfilment spread and unmet kg are reported', () => {
   const s = generateScenario(1000), m = evaluate(plan(s), s);
   assert.ok(m.marketFulfilSpread >= 0 && m.marketFulfilSpread <= 1);
   assert.ok(Math.abs(m.unmetKg - (1 - m.fulfillment) * s.destinations.reduce((a, d) => a + Object.values(d.demand).reduce((x, y) => x + y, 0), 0)) < 1e-6);
+});
+
+// ---- v3.1: metric definitions (judge finding: uplift % with non-positive denominators, tie counted as win, strongest-baseline row)
+import { upliftPctOrNull, upliftAbs } from '../src/application/comparison.js';
+import { sensitivity as sens31 } from '../src/application/sensitivity.js';
+import { elasticitySweep as sweep31 } from '../src/application/comparison.js';
+
+test('S2 uplift definition: percent only when the baseline net is > 0, absolute INR otherwise', () => {
+  assert.ok(Math.abs(upliftPctOrNull(110, 100) - 10) < 1e-9);
+  assert.equal(upliftPctOrNull(-50, -100), null);
+  assert.equal(upliftPctOrNull(5, 0), null);
+  assert.equal(upliftAbs(-50, -100), 50);
+});
+
+test('S2 neverLose and per-seed uplift cannot contradict each other', () => {
+  const r = sweep31([1000, 1001, 1002].map(sd => generateScenario(sd, { profile: 'shelf-life-binding' })));
+  for (const l of r.levels) {
+    if (l.neverLoseRate === 1) { assert.ok(l.seedMinDiffInr >= -1e-6, 'min absolute diff'); assert.ok(l.seedMinUpliftPct === null || l.seedMinUpliftPct >= -1e-6); }
+    assert.ok(Number.isFinite(l.seedMinDiffInr) && Number.isFinite(l.seedMaxDiffInr));
+    assert.ok(l.meanPerSeedBestNet === l.bestBaseNet);
+  }
+});
+
+test('S9 stress reports wins / ties / losses that add up, and the old share equals wins+ties', () => {
+  const r = sens31(generateScenario(5), { draws: 12, seed: 1 });
+  assert.equal(r.fixedWins + r.fixedTies + r.fixedLosses, 12);
+  assert.ok(Math.abs(r.fixedBeatsBaseline - (r.fixedWins + r.fixedTies) / 12) < 1e-9);
 });

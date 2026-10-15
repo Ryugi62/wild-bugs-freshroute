@@ -25,15 +25,16 @@ const summarize = (rows) => {
 export function sensitivity(s, { draws = 30, seed = 1 } = {}) {
   const r = rng(seed); const u = (a, b) => a + (b - a) * r();
   const fixedPlan = plan(s); const strong = strongestBaseline(s); const base = strong.plan;
-  const rows = { baseline: [], fixed: [], replanned: [] }; let fixedBeats = 0, replanBeats = 0;
+  const rows = { baseline: [], fixed: [], replanned: [] }; let fixedBeats = 0, replanBeats = 0, wins = 0, ties = 0, losses = 0;
   for (let i = 0; i < draws; i++) {
     const p = perturb(s, { shelfScale: u(0.8, 1), delayDays: u(0, 0.5), demandScale: u(0.75, 1.15), priceScale: u(0.9, 1.1) });
     const mb = evaluate(base, p), mf = evaluate(fixedPlan, p), mr = evaluate(replan(p), p);
     rows.baseline.push(mb); rows.fixed.push(mf); rows.replanned.push(mr);
     if (mf.net >= mb.net) fixedBeats++;
+    if (mf.net > mb.net + 1e-6) wins++; else if (mf.net >= mb.net - 1e-6) ties++; else losses++;
     if (mr.net >= mb.net) replanBeats++;
   }
-  return { baselineName: strong.name, baseline: summarize(rows.baseline), fixed: summarize(rows.fixed), replannedOracle: summarize(rows.replanned), fixedBeatsBaseline: fixedBeats / draws, replanBeatsBaseline: replanBeats / draws, draws };
+  return { baselineName: strong.name, baseline: summarize(rows.baseline), fixed: summarize(rows.fixed), replannedOracle: summarize(rows.replanned), fixedBeatsBaseline: fixedBeats / draws, fixedWins: wins, fixedTies: ties, fixedLosses: losses, replanBeatsBaseline: replanBeats / draws, draws };
 }
 
 /** Trip-delay execution test: the plan is made on the nominal day, then each market's trips run late with probability delayShare by 0.3..1.0 day. Plans stay fixed. */
