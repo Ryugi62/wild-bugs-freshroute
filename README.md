@@ -35,7 +35,7 @@ Run `npm run eval`. Full output: [eval-results.json](eval-results.json).
 | Fulfilment (mean) | 82.2% | 81.5% (plan wins 73% of datasets, profit-first objective) |
 | Hard-rule violations | 0 of 30 | |
 | Replanned dispatch vs baseline in 300 stress draws | 300 of 300 | |
-| Planning time | under 50 ms | |
+| Planning time | under 100 ms (max 89 ms) | |
 
 Honest notes: the two naive baselines (FIFO nearest, FIFO highest price) lose by a wide margin, so the table uses the strongest one. Data is synthetic and shows behaviour, not real-world performance. Government post-harvest loss statistics are context only.
 
