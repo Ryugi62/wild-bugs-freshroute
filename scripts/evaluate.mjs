@@ -11,7 +11,7 @@ for (let seed = 1000; seed < 1030; seed++) {
   const t = performance.now(); const p = plan(s); maxMs = Math.max(maxMs, performance.now() - t);
   const m = evaluate(p, s), a = evaluate(baselineFifoNearest(s), s), b = evaluate(baselinePriceGreedy(s), s), c = evaluate(baselineSmartGreedy(s), s);
   const best = [a, b, c].sort((x, y) => y.net - x.net)[0];
-  rows.push({ seed, net: m.net, bestBaseNet: best.net, spoil: m.spoilageRate, bestBaseSpoil: Math.min(a.spoilageRate, b.spoilageRate), fulfil: m.fulfillment, baseFulfil: Math.max(a.fulfillment, b.fulfillment), violations: m.violations.length, baseViolations: Math.min(a.violations.length, b.violations.length), fifoNet: a.net, smartNet: c.net, smartSpoil: c.spoilageRate, smartFulfil: c.fulfillment, priceNet: b.net, fifoSpoil: a.spoilageRate, priceSpoil: b.spoilageRate });
+  rows.push({ seed, net: m.net, bestBaseNet: best.net, spoil: m.spoilageRate, bestBaseSpoil: Math.min(a.spoilageRate, b.spoilageRate, c.spoilageRate), fulfil: m.fulfillment, baseFulfil: Math.max(a.fulfillment, b.fulfillment, c.fulfillment), violations: m.violations.length, baseViolations: Math.min(a.violations.length, b.violations.length, c.violations.length), fifoNet: a.net, smartNet: c.net, smartSpoil: c.spoilageRate, smartFulfil: c.fulfillment, priceNet: b.net, fifoSpoil: a.spoilageRate, priceSpoil: b.spoilageRate });
 }
 const mean = (k) => rows.reduce((x, r) => x + r[k], 0) / rows.length;
 const wins = (f) => rows.filter(f).length / rows.length;

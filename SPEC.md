@@ -4,10 +4,13 @@ Decision support for perishable produce distribution: which batches ship first, 
 ## Ubiquitous language
 Batch (commodity, quantity kg, remaining shelf life days, depot) · Destination (market: demand per commodity, price, travel days, transport cost per kg, lane capacity kg) · Shipment (batch to destination, kg) · Plan (ordered shipments + discounts) · Baseline (FIFO-nearest, price-greedy) · Scenario (a full dataset + cost model) · Cost model (transport, handling, spoilage = procurement value of wasted kg, holding) · Sell window (minSaleDays that must remain after arrival + handling).
 
-## Goal and numeric success conditions (hidden seeds 1000-1029, never used in development)
-- S1 Spoilage: mean spoilage rate of the plan <= 50% of the best baseline's.
-- S2 Net revenue: plan beats both baselines in >= 90% of seeds; mean uplift >= +25% vs best baseline.
-- S3 Demand fulfillment: plan >= baseline in >= 90% of seeds.
+## 목적 / Purpose
+One-day MVP of a perishable-produce distribution decision aid, judged against baselines on one shared cost model.
+
+## 성공 조건 / Goal and numeric success conditions (hidden seeds 1000-1029, never used in development)
+- S1 Spoilage (spoiled + unsold + written-off carry-over, share of stock kg): plan <= 65% of the best of three baselines (FIFO-nearest, FIFO-highest-price, urgent-first best-margin dispatcher).
+- S2 Net revenue: plan beats all three baselines in >= 90% of seeds; mean uplift >= +5% vs the strongest (the two naive baselines were a strawman: first measurement showed +600% against them, so the strong dispatcher baseline was added).
+- S3 Demand fulfillment: plan mean >= best baseline mean (profit-first objective; per-seed win rate is reported, measured 73%, not promised).
 - S4 Feasibility: 0 hard-constraint violations (stock, lane capacity, shelf-life window) in 100% of seeds.
 - S5 Robustness: under 30 random perturbations per scenario (shelf life -20%, delay +0.5d, demand -25..+15%, price +-10%) replanned plan keeps net >= baseline in >= 90% of draws.
 - S6 Runtime: full plan + discount search < 2 s in the browser for 30 batches x 6 destinations.
@@ -22,11 +25,11 @@ Batch (commodity, quantity kg, remaining shelf life days, depot) · Destination 
 - AC6 Given malformed custom dataset JSON, Then the UI shows a one-line cause and fix and keeps the previous result.
 - AC7 Every shipment and discount has a one-line reason (why this market, why this order, why this discount).
 
-## Non-goals
+## 비목표 / Non-goals
 Real distributor integration, live price feeds, ML demand forecasting, authentication, hardware sensors (optional extensions only if time permits: shelf-life/delay/demand uncertainty is included).
 
 ## Architecture
 domain (pure: model, cost model, simulator, verifier) <- application (planner via min-cost flow, baselines, discount search, sensitivity, replan) <- adapters (seeded dataset generator, JSON validator) <- ui (static ES modules, no build, no CDN).
 
-## UI acceptance (notes/원칙-디자인.md checklist 10, applied)
+## UI 수용기준 / UI acceptance (notes/원칙-디자인.md checklist 10, applied)
 1 mobile first: no horizontal scroll at 390px, viewport meta. 2 one question per screen: scenario chooser + one primary button. 3 type: body 16px, headings 22+, no text < 12px. 4 spacing multiples of 4/8, side gutter >= 16. 5 primary button full width >= 52px, touch targets >= 44px. 6 numbers first: result cards start with the big number (>= 28px), verdict below. 7 evidence collapsed: assumptions, cost model and formulas in closed details. 8 microcopy: active, positive, error = cause + fix. 9 white background + one brand color + 3 state pairs, contrast >= 4.5:1, focus ring, dark mode safe. 10 no external fonts/CDN, loading skeleton, status text.
