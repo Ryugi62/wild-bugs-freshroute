@@ -1,0 +1,12 @@
+Spoiled produce is a planning problem.
+It decides what ships first, and where.
+Twenty six batches, six markets, one day.
+Money, waste, and demand met come first.
+It beats a careful human dispatcher.
+Most perishable first, with a reason each.
+Discounts appear only where they pay.
+Now, close the biggest market.
+It replans at once, zero rule breaks.
+Thirty bad days, it still wins.
+On hidden data, spoilage falls thirty eight percent.
+Open assumptions and tested code: FreshRoute.

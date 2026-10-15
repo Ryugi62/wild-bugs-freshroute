@@ -1,0 +1,61 @@
+{
+ "project": "wild-bugs-hack-2026",
+ "note": "FreshRoute 60초 이하 데모 영상. build.py(narration.json → edge-tts → 라이브 배포 URL Playwright 녹화 → ffmpeg).",
+ "video": "out/freshroute-demo.mp4",
+ "srt": "out/freshroute-demo.srt",
+ "srt_max_chars": 42,
+ "narration": "out/narration.txt",
+ "timeline": "timeline.json",
+ "lang": "en",
+ "principle_scene": "0:26~0:36 discounts only where simulation adds money, then 0:36~0:45 biggest market closed and the plan is rebuilt with zero rule breaks",
+ "staged": [
+  "0:40~0:50 결과 카드는 eval-results.json(숨은 시드 30개)의 값을 옮겨 적은 정지 카드(연출 표기: 카드 제목 Measured on hidden datasets)",
+  "0:50~0:54 마지막 카드는 문구만"
+ ],
+ "frames_reviewed": [
+  "frames/01-kpis.png",
+  "frames/02-discounts.png",
+  "frames/03-closed-market.png",
+  "frames/04-stress.png",
+  "frames/05-hidden-eval.png"
+ ],
+ "tts_engine": "edge-tts",
+ "terms_ban": [
+  "guarantee",
+  "perfect",
+  "always accurate"
+ ],
+ "acronym_ok": [
+  "AI"
+ ],
+ "submit_files": [
+  "out/freshroute-demo.mp4"
+ ],
+ "name_pattern": "^freshroute-demo\\.mp4$",
+ "claims": [
+  {
+   "claim": "Net revenue, spoilage and fulfilment are shown first against a careful dispatcher baseline",
+   "evidence": "frames/01-kpis.png"
+  },
+  {
+   "claim": "A discount is recommended only where the simulation adds money, with the reason on each line",
+   "evidence": "frames/02-discounts.png"
+  },
+  {
+   "claim": "Closing the biggest market rebuilds a feasible plan with zero rule breaks",
+   "evidence": "frames/03-closed-market.png"
+  },
+  {
+   "claim": "Thirty random bad days: the replanned dispatch beats the baseline",
+   "evidence": "frames/04-stress.png"
+  },
+  {
+   "claim": "Hidden datasets: spoilage 18.0% vs 29.0% best baseline, zero rule breaks",
+   "evidence": "../eval-results.json"
+  }
+ ],
+ "eval": "최종평가.md",
+ "build_scripts": [
+  "build.py"
+ ]
+}

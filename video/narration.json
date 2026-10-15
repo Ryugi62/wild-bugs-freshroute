@@ -1,0 +1,52 @@
+{
+"lines": [
+{
+"id": "s01",
+"sub": "Spoiled produce is a planning problem."
+},
+{
+"id": "s02",
+"sub": "It decides what ships first, and where."
+},
+{
+"id": "s03",
+"sub": "Twenty six batches, six markets, one day."
+},
+{
+"id": "s04",
+"sub": "Money, waste, and demand met come first."
+},
+{
+"id": "s05",
+"sub": "It beats a careful human dispatcher."
+},
+{
+"id": "s06",
+"sub": "Most perishable first, with a reason each."
+},
+{
+"id": "s07",
+"sub": "Discounts appear only where they pay."
+},
+{
+"id": "s08",
+"sub": "Now, close the biggest market."
+},
+{
+"id": "s09",
+"sub": "It replans at once, zero rule breaks."
+},
+{
+"id": "s10",
+"sub": "Thirty bad days, it still wins."
+},
+{
+"id": "s11",
+"sub": "On hidden data, spoilage falls thirty eight percent."
+},
+{
+"id": "s12",
+"sub": "Open assumptions and tested code: FreshRoute."
+}
+]
+}

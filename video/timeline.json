@@ -1,0 +1,290 @@
+{
+ "fps": 30,
+ "lang": "en",
+ "layout": {
+  "content": [
+   0,
+   0,
+   1280,
+   576
+  ],
+  "subtitle_band": [
+   0,
+   576,
+   1280,
+   720
+  ]
+ },
+ "sentences": [
+  {
+   "id": "s01",
+   "start": 0.3,
+   "end": 2.338,
+   "text": "Spoiled produce is a planning problem.",
+   "pause_before": 0.0,
+   "emphasis": false
+  },
+  {
+   "id": "s02",
+   "start": 2.838,
+   "end": 5.088,
+   "text": "It decides what ships first, and where.",
+   "pause_before": 0.0,
+   "emphasis": false
+  },
+  {
+   "id": "s03",
+   "start": 5.538,
+   "end": 8.326,
+   "text": "Twenty six batches, six markets, one day.",
+   "pause_before": 0.0,
+   "emphasis": false
+  },
+  {
+   "id": "s04",
+   "start": 8.726,
+   "end": 11.314,
+   "text": "Money, waste, and demand met come first.",
+   "pause_before": 0.0,
+   "emphasis": false
+  },
+  {
+   "id": "s05",
+   "start": 11.864,
+   "end": 14.076,
+   "text": "It beats a careful human dispatcher.",
+   "pause_before": 0.0,
+   "emphasis": false
+  },
+  {
+   "id": "s06",
+   "start": 14.526,
+   "end": 17.114,
+   "text": "Most perishable first, with a reason each.",
+   "pause_before": 0.0,
+   "emphasis": false
+  },
+  {
+   "id": "s07",
+   "start": 17.614,
+   "end": 19.576,
+   "text": "Discounts appear only where they pay.",
+   "pause_before": 0.0,
+   "emphasis": false
+  },
+  {
+   "id": "s08",
+   "start": 19.976,
+   "end": 21.901,
+   "text": "Now, close the biggest market.",
+   "pause_before": 0.0,
+   "emphasis": false
+  },
+  {
+   "id": "s09",
+   "start": 22.501,
+   "end": 25.276,
+   "text": "It replans at once, zero rule breaks.",
+   "pause_before": 0.0,
+   "emphasis": false
+  },
+  {
+   "id": "s10",
+   "start": 25.726,
+   "end": 27.751,
+   "text": "Thirty bad days, it still wins.",
+   "pause_before": 0.0,
+   "emphasis": false
+  },
+  {
+   "id": "s11",
+   "start": 28.251,
+   "end": 31.339,
+   "text": "On hidden data, spoilage falls thirty eight percent.",
+   "pause_before": 0.0,
+   "emphasis": false
+  },
+  {
+   "id": "s12",
+   "start": 31.889,
+   "end": 35.014,
+   "text": "Open assumptions and tested code: FreshRoute.",
+   "pause_before": 0.0,
+   "emphasis": false
+  }
+ ],
+ "cues": [
+  {
+   "start": 0.3,
+   "end": 2.338,
+   "lines": [
+    "Spoiled produce is a planning problem."
+   ]
+  },
+  {
+   "start": 2.838,
+   "end": 5.088,
+   "lines": [
+    "It decides what ships first, and where."
+   ]
+  },
+  {
+   "start": 5.538,
+   "end": 8.326,
+   "lines": [
+    "Twenty six batches, six markets, one day."
+   ]
+  },
+  {
+   "start": 8.726,
+   "end": 11.314,
+   "lines": [
+    "Money, waste, and demand met come first."
+   ]
+  },
+  {
+   "start": 11.864,
+   "end": 14.076,
+   "lines": [
+    "It beats a careful human dispatcher."
+   ]
+  },
+  {
+   "start": 14.526,
+   "end": 17.114,
+   "lines": [
+    "Most perishable first, with a reason each."
+   ]
+  },
+  {
+   "start": 17.614,
+   "end": 19.576,
+   "lines": [
+    "Discounts appear only where they pay."
+   ]
+  },
+  {
+   "start": 19.976,
+   "end": 21.901,
+   "lines": [
+    "Now, close the biggest market."
+   ]
+  },
+  {
+   "start": 22.501,
+   "end": 25.276,
+   "lines": [
+    "It replans at once, zero rule breaks."
+   ]
+  },
+  {
+   "start": 25.726,
+   "end": 27.751,
+   "lines": [
+    "Thirty bad days, it still wins."
+   ]
+  },
+  {
+   "start": 28.251,
+   "end": 29.101,
+   "lines": [
+    "On hidden data,"
+   ]
+  },
+  {
+   "start": 29.201,
+   "end": 31.339,
+   "lines": [
+    "spoilage falls thirty eight percent."
+   ]
+  },
+  {
+   "start": 31.889,
+   "end": 34.055,
+   "lines": [
+    "Open assumptions and tested code:"
+   ]
+  },
+  {
+   "start": 34.155,
+   "end": 35.014,
+   "lines": [
+    "FreshRoute."
+   ]
+  }
+ ],
+ "cuts": [],
+ "screen_text": [
+  "FreshRoute",
+  "Pick a day to plan",
+  "Ship in this order",
+  "Discount only where it pays",
+  "If things go wrong",
+  "Net revenue after all costs",
+  "Measured on hidden datasets",
+  "Thank you",
+  "Hidden datasets: 30 seeds, never used while building",
+  "Rule breaks by the plan: 0 of 30 datasets",
+  "Spoiled or unsold: 18.0% vs 29.0% (best baseline)",
+  "Net revenue: +5.6% vs best baseline, wins in 100% of datasets",
+  "FreshRoute",
+  "Wild Bugs · PS 03",
+  "Synthetic data. Assumptions and tests are public."
+ ],
+ "speech_onsets": [
+  {
+   "id": "s01",
+   "t": 0.349
+  },
+  {
+   "id": "s02",
+   "t": 2.882
+  },
+  {
+   "id": "s03",
+   "t": 5.588
+  },
+  {
+   "id": "s04",
+   "t": 8.773
+  },
+  {
+   "id": "s05",
+   "t": 11.906
+  },
+  {
+   "id": "s06",
+   "t": 14.574
+  },
+  {
+   "id": "s07",
+   "t": 17.659
+  },
+  {
+   "id": "s08",
+   "t": 20.02
+  },
+  {
+   "id": "s09",
+   "t": 22.545
+  },
+  {
+   "id": "s10",
+   "t": 25.782
+  },
+  {
+   "id": "s11",
+   "t": 28.301
+  },
+  {
+   "id": "s12",
+   "t": 31.934
+  }
+ ],
+ "static_spans": [
+  {
+   "start": 3.73,
+   "dur": 4.73
+  }
+ ]
+}

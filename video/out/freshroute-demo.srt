@@ -1,0 +1,55 @@
+1
+00:00:00,300 --> 00:00:02,338
+Spoiled produce is a planning problem.
+
+2
+00:00:02,838 --> 00:00:05,088
+It decides what ships first, and where.
+
+3
+00:00:05,538 --> 00:00:08,326
+Twenty six batches, six markets, one day.
+
+4
+00:00:08,726 --> 00:00:11,314
+Money, waste, and demand met come first.
+
+5
+00:00:11,864 --> 00:00:14,076
+It beats a careful human dispatcher.
+
+6
+00:00:14,526 --> 00:00:17,114
+Most perishable first, with a reason each.
+
+7
+00:00:17,614 --> 00:00:19,576
+Discounts appear only where they pay.
+
+8
+00:00:19,976 --> 00:00:21,901
+Now, close the biggest market.
+
+9
+00:00:22,501 --> 00:00:25,276
+It replans at once, zero rule breaks.
+
+10
+00:00:25,726 --> 00:00:27,751
+Thirty bad days, it still wins.
+
+11
+00:00:28,251 --> 00:00:29,101
+On hidden data,
+
+12
+00:00:29,201 --> 00:00:31,339
+spoilage falls thirty eight percent.
+
+13
+00:00:31,889 --> 00:00:34,055
+Open assumptions and tested code:
+
+14
+00:00:34,155 --> 00:00:35,014
+FreshRoute.
