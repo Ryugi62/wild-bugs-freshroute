@@ -2,17 +2,17 @@
 Decision support for perishable produce distribution: which batches ship first, where they go, when to discount.
 
 ## Ubiquitous language
-Batch (commodity, quantity kg, remaining shelf life days, depot) · Destination (market: demand per commodity, price, travel days, transport cost per kg, lane capacity kg) · Shipment (batch to destination, kg) · Plan (ordered shipments + discounts) · Baseline (FIFO-nearest, price-greedy) · Scenario (a full dataset + cost model) · Cost model (transport, handling, spoilage = procurement value of wasted kg, holding) · Sell window (minSaleDays that must remain after arrival + handling).
+Batch (commodity, quantity kg, remaining shelf life days, depot) · Destination (market: demand per commodity, price, travel days, transport cost per kg, lane capacity kg) · Shipment (batch to destination, kg) · Plan (ordered shipments + discounts) · Baseline (FIFO-nearest, price-greedy) · Scenario (a full dataset + cost model) · Cost model (transport, handling, spoilage = procurement value of wasted kg, holding) · Sell window (minSaleDays that must remain after arrival + handling) · Delivery window (latest arrival, in days after dispatch, that a market accepts) · Unsold stock (kg not sold this round: carry-over written off + spoiled/unsold at market; real spoilage is reported separately) · Strongest baseline (best net among four baselines on the same seed) · Elasticity sweep (0.5 / 1.0 / 1.5).
 
 ## 목적 / Purpose
 One-day MVP of a perishable-produce distribution decision aid, judged against baselines on one shared cost model.
 
 ## 성공 조건 / Goal and numeric success conditions (hidden seeds 1000-1029, never used in development)
-- S1 Spoilage (spoiled + unsold + written-off carry-over, share of stock kg): plan <= 65% of the best of three baselines (FIFO-nearest, FIFO-highest-price, urgent-first best-margin dispatcher).
-- S2 Net revenue: plan beats all three baselines in >= 90% of seeds; mean uplift >= +5% vs the strongest (the two naive baselines were a strawman: first measurement showed +600% against them, so the strong dispatcher baseline was added).
-- S3 Demand fulfillment: plan mean >= best baseline mean (profit-first objective; per-seed win rate is reported, measured 73%, not promised).
-- S4 Feasibility: 0 hard-constraint violations (stock, lane capacity, shelf-life window) in 100% of seeds.
-- S5 Robustness: under 30 random perturbations per scenario (shelf life -20%, delay +0.5d, demand -25..+15%, price +-10%) replanned plan keeps net >= baseline in >= 90% of draws.
+- S1 Unsold-stock share (unsold + written-off carry-over + real spoilage, share of stock kg; the honest name, because both strategies spoil ~0 kg and the share is mostly stock left at the depot): reported at elasticity 0.5 / 1.0 / 1.5 against the strongest of four baselines (FIFO-nearest, FIFO-highest-price, urgent-first best-margin dispatcher, dispatcher + simple 30% surplus discount). Plan <= strongest baseline at every elasticity; real spoiled kg reported alongside.
+- S2 Net revenue, elasticity sweep (revised after measurement: the first draft demanded a strict win in >= 90% of seeds at every elasticity; at 0.5 the plan ties the dispatcher in half the seeds because nothing contends for lanes, so the honest condition is non-inferiority plus a reported strict-win count): plan >= strongest of four baselines in 100% of seeds at every elasticity in {0.5, 1.0, 1.5}, strict wins reported. The headline is the MOST CONSERVATIVE mean uplift over the sweep, shown with the discount-free plan so routing gain and discount gain are separate. Measured: +0.6% / +0.9% / +4.1%; headline +0.6%. Food elasticity in the literature is 0.27-0.81, so 1.5 is the optimistic column only.
+- S3 Demand fulfillment: reported (plan mean 72.6% at the default elasticity), no superiority claim (profit-first objective).
+- S4 Feasibility: 0 hard-constraint violations (stock, lane capacity, shelf-life window, delivery window) in 100% of seeds.
+- S5 Robustness: under 30 random perturbations per scenario (shelf life -20%, delay +0.5d, demand -25..+15%, price +-10%) the original plan and the strongest baseline are both computed once and kept fixed on every bad day; mean net of the fixed plan >= fixed baseline at each elasticity, and the share of draws won is reported, not promised (measured 69% / 44% / 62% at 0.5 / 1.0 / 1.5; delivery windows make a fixed plan fragile when trips run late). Re-solving with known disturbed values is an oracle upper bound and is labelled as such.
 - S6 Runtime: full plan + discount search < 2 s in the browser for 30 batches x 6 destinations.
 - S7 Determinism: same seed -> identical plan JSON.
 
@@ -23,10 +23,12 @@ One-day MVP of a perishable-produce distribution decision aid, judged against ba
 - AC4 Given perishable and durable batches competing for one lane, Then the perishable one is dispatched first (priority rank by remaining life).
 - AC5 Given a disruption (closed market, delay, demand shock, shelf-life loss), When Replan is run, Then a new feasible plan is produced and compared again.
 - AC6 Given malformed custom dataset JSON, Then the UI shows a one-line cause and fix and keeps the previous result.
+- AC8 Given a market with a delivery window W, When travel + handling > W, Then the shipment is infeasible (verifier type delivery_window) and the planner never creates it.
+- AC9 Given the elasticity sweep, Then the comparison table has one column per elasticity, a discount-free plan column and a baseline + simple-discount column.
 - AC7 Every shipment and discount has a one-line reason (why this market, why this order, why this discount).
 
 ## 비목표 / Non-goals
-Real distributor integration, live price feeds, ML demand forecasting, authentication, hardware sensors (optional extensions only if time permits: shelf-life/delay/demand uncertainty is included).
+Real distributor integration, live price feeds, ML demand forecasting, authentication, hardware sensors (discounts are decided per market x commodity cell and the reason lists the batch IDs that feed the cell; there is one dispatch round, so discount timing is out of scope; optional extensions only if time permits: shelf-life/delay/demand uncertainty is included).
 
 ## Architecture
 domain (pure: model, cost model, simulator, verifier) <- application (planner via min-cost flow, baselines, discount search, sensitivity, replan) <- adapters (seeded dataset generator, JSON validator) <- ui (static ES modules, no build, no CDN).

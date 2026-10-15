@@ -26,6 +26,12 @@
       <option value="closed">Biggest market closed</option>
       <option value="demand">Demand drops 30%</option>
     </select>
+    <label for="elast">Price elasticity (how much demand a discount adds)</label>
+    <select id="elast">
+      <option value="0.5">0.5 — conservative (default)</option>
+      <option value="1">1.0</option>
+      <option value="1.5">1.5 — optimistic</option>
+    </select>
     <label for="seed">Dataset (seeded synthetic)</label>
     <select id="seed"></select>
     <p class="hint" id="status" role="status" aria-live="polite">Ready.</p>
@@ -35,7 +41,8 @@
     <div id="kpis" class="kpis"></div>
     <section class="card"><h2>Ship in this order</h2><p class="hint">Most perishable first. Each line says why.</p><ol id="ships" class="list"></ol><details id="moreShips"><summary>Show all dispatches</summary><ol id="shipsAll" class="list"></ol></details></section>
     <section class="card"><h2>Discount only where it pays</h2><ul id="discs" class="list"></ul></section>
-    <section class="card"><h2>If things go wrong</h2><p class="hint">30 random bad days: produce ages up to 20% faster, trips up to half a day longer, demand −25% to +15%, prices ±10%.</p><div id="stress" class="kpis"></div></section>
+    <section class="card"><h2>If things go wrong</h2><p class="hint">30 random bad days: produce ages up to 20% faster, trips up to half a day longer, demand −25% to +15%, prices ±10%. Both the plan and the strongest baseline are fixed in advance.</p><div id="stress" class="kpis"></div></section>
+    <details class="card"><summary>Does the win depend on our elasticity assumption?</summary><div class="scroll"><table id="sweep"></table></div><p class="hint" id="sweepNote"></p></details>
     <details class="card"><summary>Full comparison with baselines</summary><div class="scroll"><table id="cmp"></table></div></details>
     <details class="card"><summary>Assumptions, cost model and limits</summary><div id="assump"></div></details>
     <details class="card"><summary>Use your own dataset</summary>

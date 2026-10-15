@@ -2,7 +2,7 @@
 "lines": [
 {
 "id": "s01",
-"sub": "Spoiled produce is a planning problem."
+"sub": "Unsold produce is a planning problem."
 },
 {
 "id": "s02",
@@ -14,11 +14,11 @@
 },
 {
 "id": "s04",
-"sub": "Money, waste, and demand met come first."
+"sub": "Money, unsold stock, and demand met come first."
 },
 {
 "id": "s05",
-"sub": "It beats a careful human dispatcher."
+"sub": "It beats a strong rule-based dispatcher."
 },
 {
 "id": "s06",
@@ -26,7 +26,7 @@
 },
 {
 "id": "s07",
-"sub": "Discounts appear only where they pay."
+"sub": "If demand is elastic, discounts appear only where they pay."
 },
 {
 "id": "s08",
@@ -38,15 +38,15 @@
 },
 {
 "id": "s10",
-"sub": "Thirty bad days, it still wins."
+"sub": "Thirty bad days: plan and rival both fixed, it still earns more."
 },
 {
 "id": "s11",
-"sub": "On hidden data, spoilage falls thirty eight percent."
+"sub": "On held out data: at least plus point six percent, never worse."
 },
 {
 "id": "s12",
-"sub": "Open assumptions and tested code: FreshRoute."
+"sub": "Open assumptions, tested code: FreshRoute."
 }
 ]
 }

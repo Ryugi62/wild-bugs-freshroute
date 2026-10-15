@@ -11,8 +11,8 @@ export const COMMODITIES = {
   onion:   { procureCost: 12, maxLife: 25, basePrice: 28 },
 };
 const MARKETS = [
-  ['M1', 'Nashik Mandi', 0.3, 2, 1800], ['M2', 'Pune APMC', 0.8, 3.5, 3000], ['M3', 'Mumbai Vashi', 1.2, 5, 4200],
-  ['M4', 'Surat Market', 1.8, 6.5, 3000], ['M5', 'Ahmedabad Jamalpur', 2.6, 8.5, 2600], ['M6', 'Indore Choithram', 2.2, 7.5, 2200],
+  ['M1', 'Nashik Mandi', 0.3, 2, 1800, 1.0], ['M2', 'Pune APMC', 0.8, 3.5, 3000, 1.5], ['M3', 'Mumbai Vashi', 1.2, 5, 4200, 1.9],
+  ['M4', 'Surat Market', 1.8, 6.5, 3000, 2.2], ['M5', 'Ahmedabad Jamalpur', 2.6, 8.5, 2600, 3.0], ['M6', 'Indore Choithram', 2.2, 7.5, 2200, 2.5],
 ];
 export function generateScenario(seed, opts = {}) {
   const r = rng(seed); const rf = (a, b) => a + (b - a) * r(); const pick = (a) => a[Math.floor(r() * a.length)];
@@ -23,17 +23,17 @@ export function generateScenario(seed, opts = {}) {
     const c = pick(names); const m = COMMODITIES[c];
     batches.push({ id: `B${String(i).padStart(2, '0')}`, commodity: c, qty: Math.round(rf(200, 1100) / 10) * 10, life: Math.round(rf(0.35, 1) * m.maxLife * 10) / 10 + 0.5 });
   }
-  const destinations = MARKETS.map(([id, name, travelDays, costPerKg, cap]) => {
+  const destinations = MARKETS.map(([id, name, travelDays, costPerKg, cap, deliveryWindowDays]) => {
     const demand = {}, price = {};
     for (const c of names) {
       demand[c] = Math.round(rf(150, 900) * (cap / 3000) / 10) * 10;
       price[c] = Math.round(COMMODITIES[c].basePrice * rf(0.8, 1.3) * 10) / 10;
     }
-    return { id, name, travelDays: Math.round(travelDays * rf(0.9, 1.15) * 100) / 100, costPerKg: Math.round(costPerKg * rf(0.9, 1.15) * 10) / 10, laneCapacity: Math.round(cap * rf(0.8, 1.1) / 10) * 10, demand, price };
+    return { id, name, travelDays: Math.round(travelDays * rf(0.9, 1.15) * 100) / 100, costPerKg: Math.round(costPerKg * rf(0.9, 1.15) * 10) / 10, laneCapacity: Math.round(cap * rf(0.8, 1.1) / 10) * 10, deliveryWindowDays, demand, price };
   });
   return {
     seed, name: `Seed ${seed}`, depot: 'Nashik hub',
-    costModel: { minSaleDays: 1, handlingDays: 0.25, handlingCostPerKg: 1.2, holdDays: 1, holdingCostPerKg: 0.6, carryWriteOff: 0.5, elasticity: 1.5, discountLevels: [0, 0.1, 0.2, 0.3] },
+    costModel: { minSaleDays: 1, handlingDays: 0.25, handlingCostPerKg: 1.2, holdDays: 1, holdingCostPerKg: 0.6, carryWriteOff: 0.5, elasticity: 0.5, discountLevels: [0, 0.1, 0.2, 0.3] },
     commodities: Object.fromEntries(names.map(c => [c, { procureCost: COMMODITIES[c].procureCost, maxLife: COMMODITIES[c].maxLife }])),
     batches, destinations,
   };

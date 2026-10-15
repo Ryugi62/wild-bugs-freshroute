@@ -54,11 +54,13 @@ def plan():
     return lines, sents, cues, mp3
 
 
+SW = EV["sweep"]; HL = EV["headline"]
 FACTS = [
-    f"Hidden datasets: 30 seeds, never used while building",
+    "Held-out data: 30 seeds, never used while building",
     f"Rule breaks by the plan: {EV['S4_violations']['planSeedsWithViolations']} of 30 datasets",
-    f"Spoiled or unsold: {EV['S1_spoilage']['plan']*100:.1f}% vs {EV['S1_spoilage']['smart']*100:.1f}% (best baseline)",
-    f"Net revenue: +{EV['S2_net']['upliftVsSmartPct']:.1f}% vs best baseline, wins in {EV['S2_net']['winRate']*100:.0f}% of datasets",
+    f"Net vs strongest of 4 baselines: {SW[0]['upliftPct']:+.1f}% / {SW[1]['upliftPct']:+.1f}% / {SW[2]['upliftPct']:+.1f}%",
+    f"(elasticity 0.5 / 1.0 / 1.5), never worse in {round(HL['neverLoseRate']*30)} of 30",
+    f"Really spoiled 0 kg. Unsold stock {HL['planUnsoldRate']*100:.1f}% vs {HL['bestBaseUnsoldRate']*100:.1f}%",
 ]
 END = ["FreshRoute", "Wild Bugs · PS 03", "Synthetic data. Assumptions and tests are public."]
 
@@ -75,8 +77,8 @@ ACTIONS = {
     "s04": lambda p: js(p, "document.getElementById('kpis').scrollIntoView({behavior:'smooth',block:'start'})"),
     "s05": lambda p: js(p, "document.querySelectorAll('.kpi .verdict').forEach(e=>e.style.outline='3px solid #1B64DA')"),
     "s06": lambda p: js(p, "document.getElementById('ships').scrollIntoView({behavior:'smooth',block:'start'})"),
-    "s07": lambda p: js(p, "document.getElementById('discs').scrollIntoView({behavior:'smooth',block:'start'})"),
-    "s08": lambda p: (js(p, "window.scrollTo({top:0,behavior:'smooth'})"), p.wait_for_timeout(700), p.select_option('#preset', 'closed'), js(p, "document.getElementById('run').click()")),
+    "s07": lambda p: (p.select_option('#elast', '1.5'), js(p, "document.getElementById('run').click()"), p.wait_for_timeout(900), js(p, "document.getElementById('discs').scrollIntoView({behavior:'smooth',block:'start'})")),
+    "s08": lambda p: (js(p, "window.scrollTo({top:0,behavior:'smooth'})"), p.wait_for_timeout(700), p.select_option('#elast', '0.5'), p.select_option('#preset', 'closed'), js(p, "document.getElementById('run').click()")),
     "s09": lambda p: js(p, "document.getElementById('status').style.outline='3px solid #1B64DA'"),
     "s10": lambda p: js(p, "document.getElementById('stress').scrollIntoView({behavior:'smooth',block:'center'})"),
 }
@@ -96,9 +98,9 @@ def record(sents):
             while time.monotonic() - t0 < tgt: time.sleep(0.01)
             if s["id"] in ACTIONS: ACTIONS[s["id"]](page)
             if s["id"] == "s11":
-                card(page, FACTS, "Measured on hidden datasets")
-                for i in range(4):
-                    page.evaluate(f"document.getElementById('r{i}').style.opacity=1"); page.wait_for_timeout(900 if i < 3 else 200)
+                card(page, FACTS, "Measured on held-out datasets")
+                for i in range(len(FACTS)):
+                    page.evaluate(f"document.getElementById('r{i}').style.opacity=1"); page.wait_for_timeout(700 if i < len(FACTS) - 1 else 200)
             if s["id"] == "s12":
                 card(page, END, "Thank you"); [page.evaluate(f"document.getElementById('r{i}').style.opacity=1") for i in range(3)]
         end = sents[-1]["end"] + 0.8
@@ -137,7 +139,7 @@ def main():
     subprocess.run(cmd, check=True, capture_output=True)
     open(f"{OUT}/{NAME}.srt", "w", encoding="utf-8").write(srt(cues))
     open(f"{OUT}/narration.txt", "w", encoding="utf-8").write("\n".join(l["sub"] for l in lines) + "\n")
-    screen = ["FreshRoute", "Pick a day to plan", "Ship in this order", "Discount only where it pays", "If things go wrong", "Net revenue after all costs", "Measured on hidden datasets", "Thank you"] + FACTS + END
+    screen = ["FreshRoute", "Pick a day to plan", "Ship in this order", "Discount only where it pays", "If things go wrong", "Net revenue after all costs", "Measured on held-out datasets", "Thank you"] + FACTS + END
     tl = {"fps": FPS, "lang": "en", "layout": {"content": [0, 0, 1280, CH], "subtitle_band": [0, CH, 1280, H]}, "sentences": sents, "cues": cues, "cuts": [], "screen_text": screen}
     json.dump(tl, open(f"{HERE}/timeline.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print("ok", round(total, 1), "s; trim", round(ss, 2))

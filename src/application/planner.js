@@ -1,5 +1,5 @@
 import { Flow } from './mincostflow.js';
-import { arrivalLife, evaluate, key, effectiveDemand } from '../domain/simulator.js';
+import { arrivalLife, evaluate, key, effectiveDemand, shipFeasible, deliveryOk } from '../domain/simulator.js';
 
 const f1 = (x) => (Math.round(x * 10) / 10).toString();
 
@@ -16,7 +16,7 @@ function solve(scenario, disc) {
   B.forEach((b, i) => cells.forEach((cell, j) => {
     if (cell.c !== b.commodity) return;
     const life = arrivalLife(b, cell.d, scenario);
-    if (life < cm.minSaleDays || cell.d.demand[cell.c] <= 0) return; // AC1: infeasible edges never exist
+    if (!shipFeasible(b, cell.d, scenario) || cell.d.demand[cell.c] <= 0) return; // AC1: infeasible edges never exist
     // tiny tie-break: the more perishable batch is cheaper, so it wins contested capacity
     const cost = cell.d.costPerKg + cm.handlingCostPerKg + 1e-4 * b.life;
     shipEdges.push({ id: flow.add(bNode(i), cNode(j), b.qty, cost), b, cell, life });
@@ -37,7 +37,7 @@ function solve(scenario, disc) {
 
 function reasonFor(s, scenario, rankPool) {
   const d = scenario.destinations.find(x => x.id === s.destId);
-  const alts = scenario.destinations.filter(x => !x.closed && x.id !== d.id && s.lifeAtDeparture - x.travelDays - scenario.costModel.handlingDays >= scenario.costModel.minSaleDays).length;
+  const alts = scenario.destinations.filter(x => !x.closed && x.id !== d.id && s.lifeAtDeparture - x.travelDays - scenario.costModel.handlingDays >= scenario.costModel.minSaleDays && deliveryOk(x, scenario)).length;
   const unit = d.price[s.commodity] - d.costPerKg - scenario.costModel.handlingCostPerKg;
   return `${s.commodity} ${s.batchId} has ${f1(s.lifeAtDeparture)}d left, ships ${s.qty} kg to ${d.name || d.id} and arrives with ${f1(s.lifeAtArrival)}d to sell; ~Rs ${f1(unit)}/kg margin before discount, best of ${alts + 1} feasible markets given lane and demand limits.`;
 }
@@ -76,8 +76,9 @@ export function plan(scenario, opts = {}) {
     if (gain <= 1e-6) continue;
     const d = scenario.destinations.find(x => x.id === destId);
     const cell = evaluate(withD, scenario).perCell.find(x => x.destId === destId && x.commodity === commodity);
-    discounts.push({ destId, commodity, pct, gain: Math.round(gain),
-      reason: `${commodity} at ${d.name || d.id}: supply of ${Math.round(cell.arrived)} kg exceeds base demand ${cell.demand} kg; a ${Math.round(pct * 100)}% discount lifts demand to ${Math.round(cell.demandEff)} kg (assumed elasticity ${scenario.costModel.elasticity}) and adds about Rs ${Math.round(gain)} net.` });
+    const batchIds = [...new Set(ships.filter(x => x.destId === destId && x.commodity === commodity).map(x => x.batchId))].sort();
+    discounts.push({ destId, commodity, pct, gain: Math.round(gain), batchIds,
+      reason: `${commodity} at ${d.name || d.id}, applies to batches ${batchIds.join(', ')}: supply of ${Math.round(cell.arrived)} kg exceeds base demand ${cell.demand} kg; a ${Math.round(pct * 100)}% discount lifts demand to ${Math.round(cell.demandEff)} kg (assumed elasticity ${scenario.costModel.elasticity}) and adds about Rs ${Math.round(gain)} net.` });
   }
   return { ...base, discounts };
 }

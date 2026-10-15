@@ -4,6 +4,12 @@ export const key = (d, c) => `${d}|${c}`;
 export function arrivalLife(batch, dest, scenario) {
   return round3(batch.life - dest.travelDays - scenario.costModel.handlingDays);
 }
+/** Delivery window: the market accepts arrivals only up to deliveryWindowDays after dispatch (travel + handling). No window = always open. */
+export function deliveryOk(dest, scenario) {
+  if (!(dest.deliveryWindowDays > 0)) return true;
+  return round3(dest.travelDays + scenario.costModel.handlingDays) <= dest.deliveryWindowDays;
+}
+export const shipFeasible = (batch, dest, scenario) => arrivalLife(batch, dest, scenario) >= scenario.costModel.minSaleDays && deliveryOk(dest, scenario);
 const round3 = (x) => Math.round(x * 1000) / 1000;
 
 export function discountMap(plan) {
@@ -13,7 +19,7 @@ export function discountMap(plan) {
 }
 export const effectiveDemand = (base, pct, elasticity) => base * (1 + elasticity * pct);
 
-/** Hard-constraint check: stock, lane capacity, shelf-life window. */
+/** Hard-constraint check: stock, lane capacity, shelf-life window, delivery window. */
 export function verify(plan, scenario) {
   const out = [];
   const batches = new Map(scenario.batches.map(b => [b.id, b]));
@@ -25,13 +31,14 @@ export function verify(plan, scenario) {
     perBatch.set(b.id, (perBatch.get(b.id) || 0) + s.qty);
     perDest.set(d.id, (perDest.get(d.id) || 0) + s.qty);
     if (arrivalLife(b, d, scenario) < scenario.costModel.minSaleDays) out.push({ type: 'shelf_life', batchId: b.id, destId: d.id });
+    if (!deliveryOk(d, scenario)) out.push({ type: 'delivery_window', batchId: b.id, destId: d.id });
   }
   for (const [id, q] of perBatch) if (q > batches.get(id).qty + 1e-9) out.push({ type: 'stock', batchId: id });
   for (const [id, q] of perDest) if (q > dests.get(id).laneCapacity + 1e-9) out.push({ type: 'lane_capacity', destId: id });
   return out;
 }
 
-/** Simulate one dispatch round and return the economics. Spoilage = out-of-window shipments + unsold arrivals + expiring undispatched stock. */
+/** Simulate one dispatch round and return the economics. Unsold stock = out-of-window or late shipments + unsold arrivals + undispatched stock (expiring = real spoilage, still fresh = carry-over written off). */
 export function evaluate(plan, scenario) {
   const cm = scenario.costModel;
   const batches = new Map(scenario.batches.map(b => [b.id, b]));
@@ -52,7 +59,7 @@ export function evaluate(plan, scenario) {
     shippedByBatch.set(b.id, (shippedByBatch.get(b.id) || 0) + q);
     laneUsed.set(d.id, (laneUsed.get(d.id) || 0) + q);
     transport += q * d.costPerKg; handling += q * cm.handlingCostPerKg;
-    if (d.closed || arrivalLife(b, d, scenario) < cm.minSaleDays) {
+    if (d.closed || !shipFeasible(b, d, scenario)) {
       spoiledKg += q; spoilageCost += q * scenario.commodities[b.commodity].procureCost;
     } else {
       const k = key(d.id, b.commodity); pool.set(k, (pool.get(k) || 0) + q);
@@ -86,8 +93,8 @@ export function evaluate(plan, scenario) {
   const net = revenue - transport - handling - spoilageCost - holding;
   return {
     revenue, transport, handling, spoilageCost, holding, net,
-    soldKg: sold, spoiledKg, carryKg, totalStock,
-    spoilageRate: totalStock ? spoiledKg / totalStock : 0,
+    soldKg: sold, spoiledKg, unsoldKg: spoiledKg, carryKg, trueSpoiledKg: spoiledKg - carryKg, totalStock,
+    unsoldRate: totalStock ? spoiledKg / totalStock : 0,
     fulfillment: baseDemandTotal ? fulfilledTotal / baseDemandTotal : 1,
     violations, perCell,
   };
