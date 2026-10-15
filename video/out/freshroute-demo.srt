@@ -1,55 +1,67 @@
 1
-00:00:00,300 --> 00:00:02,338
-Spoiled produce is a planning problem.
+00:00:00,300 --> 00:00:02,740
+Unsold produce is a planning problem.
 
 2
-00:00:02,838 --> 00:00:05,088
+00:00:03,240 --> 00:00:05,490
 It decides what ships first, and where.
 
 3
-00:00:05,538 --> 00:00:08,326
+00:00:05,940 --> 00:00:08,728
 Twenty six batches, six markets, one day.
 
 4
-00:00:08,726 --> 00:00:11,314
-Money, waste, and demand met come first.
+00:00:09,128 --> 00:00:10,625
+Money, unsold stock,
 
 5
-00:00:11,864 --> 00:00:14,076
-It beats a careful human dispatcher.
+00:00:10,725 --> 00:00:12,676
+and demand met come first.
 
 6
-00:00:14,526 --> 00:00:17,114
-Most perishable first, with a reason each.
+00:00:13,226 --> 00:00:15,702
+It beats a strong rule-based dispatcher.
 
 7
-00:00:17,614 --> 00:00:19,576
-Discounts appear only where they pay.
+00:00:16,152 --> 00:00:18,740
+Most perishable first, with a reason each.
 
 8
-00:00:19,976 --> 00:00:21,901
-Now, close the biggest market.
+00:00:19,240 --> 00:00:20,486
+If demand is elastic,
 
 9
-00:00:22,501 --> 00:00:25,276
-It replans at once, zero rule breaks.
+00:00:20,586 --> 00:00:22,978
+discounts appear only where they pay.
 
 10
-00:00:25,726 --> 00:00:27,751
-Thirty bad days, it still wins.
+00:00:23,378 --> 00:00:25,303
+Now, close the biggest market.
 
 11
-00:00:28,251 --> 00:00:29,101
-On hidden data,
+00:00:25,903 --> 00:00:28,678
+It replans at once, zero rule breaks.
 
 12
-00:00:29,201 --> 00:00:31,339
-spoilage falls thirty eight percent.
+00:00:29,128 --> 00:00:31,276
+Thirty bad days: plan and rival
 
 13
-00:00:31,889 --> 00:00:34,055
-Open assumptions and tested code:
+00:00:31,376 --> 00:00:33,711
+both fixed, it still earns more.
 
 14
-00:00:34,155 --> 00:00:35,014
-FreshRoute.
+00:00:34,211 --> 00:00:36,217
+On held out data: at least plus
+
+15
+00:00:36,317 --> 00:00:38,592
+point six percent, never worse.
+
+16
+00:00:39,142 --> 00:00:41,086
+Open assumptions and tested
+
+17
+00:00:41,186 --> 00:00:43,059
+code. This is FreshRoute.

@@ -9,7 +9,7 @@
  "lang": "en",
  "principle_scene": "0:26~0:36 discounts only where simulation adds money, then 0:36~0:45 biggest market closed and the plan is rebuilt with zero rule breaks",
  "staged": [
-  "0:40~0:50 결과 카드는 eval-results.json(숨은 시드 30개)의 값을 옮겨 적은 정지 카드(연출 표기: 카드 제목 Measured on hidden datasets)",
+  "0:34~0:39 결과 카드는 eval-results.json(held-out 시드 30개)의 값을 옮겨 적은 정지 카드; 0:19~0:23 할인 장면은 화면에서 탄력성 1.5를 선택해 보임(연출 표기)",
   "0:50~0:54 마지막 카드는 문구만"
  ],
  "frames_reviewed": [
@@ -34,11 +34,11 @@
  "name_pattern": "^freshroute-demo\\.mp4$",
  "claims": [
   {
-   "claim": "Net revenue, spoilage and fulfilment are shown first against a careful dispatcher baseline",
+   "claim": "Net revenue, unsold stock and fulfilment are shown first against the strongest of four baselines (including a rule-based dispatcher with a flat discount)",
    "evidence": "frames/01-kpis.png"
   },
   {
-   "claim": "A discount is recommended only where the simulation adds money, with the reason on each line",
+   "claim": "With elastic demand (1.5, set on screen) a discount is recommended only where the simulation adds money, with batch IDs and reason",
    "evidence": "frames/02-discounts.png"
   },
   {
@@ -46,11 +46,11 @@
    "evidence": "frames/03-closed-market.png"
   },
   {
-   "claim": "Thirty random bad days: the replanned dispatch beats the baseline",
+   "claim": "Thirty random bad days: plan and strongest baseline both fixed in advance; the plan earns more on average",
    "evidence": "frames/04-stress.png"
   },
   {
-   "claim": "Hidden datasets: spoilage 18.0% vs 29.0% best baseline, zero rule breaks",
+   "claim": "Held-out datasets: net +0.6% / +0.9% / +4.1% at elasticity 0.5 / 1.0 / 1.5 vs the strongest baseline, never worse, zero rule breaks, really spoiled 0 kg",
    "evidence": "../eval-results.json"
   }
  ],

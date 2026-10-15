@@ -1,12 +1,12 @@
-Spoiled produce is a planning problem.
+Unsold produce is a planning problem.
 It decides what ships first, and where.
 Twenty six batches, six markets, one day.
-Money, waste, and demand met come first.
-It beats a careful human dispatcher.
+Money, unsold stock, and demand met come first.
+It beats a strong rule-based dispatcher.
 Most perishable first, with a reason each.
-Discounts appear only where they pay.
+If demand is elastic, discounts appear only where they pay.
 Now, close the biggest market.
 It replans at once, zero rule breaks.
-Thirty bad days, it still wins.
-On hidden data, spoilage falls thirty eight percent.
-Open assumptions and tested code: FreshRoute.
+Thirty bad days: plan and rival both fixed, it still earns more.
+On held out data: at least plus point six percent, never worse.
+Open assumptions and tested code. This is FreshRoute.
