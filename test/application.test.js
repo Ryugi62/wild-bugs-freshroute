@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { generateScenario } from '../src/adapters/generator.js';
 import { evaluate, verify } from '../src/domain/simulator.js';
 import { plan } from '../src/application/planner.js';
-import { baselineFifoNearest, baselinePriceGreedy } from '../src/application/baselines.js';
+import { baselineFifoNearest, baselinePriceGreedy, baselineSmartGreedy } from '../src/application/baselines.js';
 import { perturb, replan, sensitivity } from '../src/application/sensitivity.js';
 import { parseScenario } from '../src/adapters/validate.js';
 
@@ -19,7 +19,7 @@ test('S2/S1 planner beats both baselines on net and spoilage (dev seeds)', () =>
   for (let seed = 1; seed <= 5; seed++) {
     const s = generateScenario(seed);
     const m = evaluate(plan(s), s);
-    for (const b of [baselineFifoNearest(s), baselinePriceGreedy(s)]) {
+    for (const b of [baselineFifoNearest(s), baselinePriceGreedy(s), baselineSmartGreedy(s)]) {
       const mb = evaluate(b, s);
       assert.ok(m.net > mb.net, `net seed ${seed}`);
       assert.ok(m.spoilageRate < mb.spoilageRate, `spoil seed ${seed}`);

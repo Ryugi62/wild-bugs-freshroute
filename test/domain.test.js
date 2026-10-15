@@ -37,8 +37,8 @@ test('AC2 verifier flags lane overflow, stock overflow, shelf-life', () => {
 test('discount raises demand by elasticity and lowers price', () => {
   const s = tiny();
   const base = evaluate({ shipments: [{ batchId: 'B1', destId: 'D1', qty: 100 }], discounts: [] }, s);
-  const disc = evaluate({ shipments: [{ batchId: 'B1', destId: 'D1', qty: 100 }], discounts: [{ destId: 'D1', commodity: 'tomato', pct: 0.2 }] }, s);
-  assert.equal(disc.soldKg, 100);
+  const disc = evaluate({ shipments: [{ batchId: 'B1', destId: 'D1', qty: 100 }], discounts: [{ destId: 'D1', commodity: 'tomato', pct: 0.1 }] }, s);
+  assert.ok(Math.abs(disc.soldKg - 92) < 1e-6);
   assert.ok(disc.revenue > base.revenue);
 });
 

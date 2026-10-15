@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "private": true,
-  "scripts": { "test": "node --test test/", "eval": "node scripts/evaluate.mjs", "serve": "python3 -m http.server 8080 --directory ." },
+  "scripts": { "test": "node --test test/*.test.js", "eval": "node scripts/evaluate.mjs", "serve": "python3 -m http.server 8080 --directory ." },
   "license": "MIT"
 }
